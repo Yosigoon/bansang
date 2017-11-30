@@ -9,4 +9,5 @@ public class CommentDTO {
 	private String commentContents;
 	private Long recommendNumber;
 	private Date registerDate;
+	private String memberId;
 }
