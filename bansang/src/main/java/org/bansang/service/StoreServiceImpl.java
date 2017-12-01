@@ -8,16 +8,20 @@ import org.bansang.mapper.RecommendMapper;
 import org.bansang.mapper.StoreMapper;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.java.Log;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Service
+@Log
 public class StoreServiceImpl implements StoreService {
 
 	@Autowired
 	StoreMapper storeMapper;
+	
 	@Inject
 	private RecommendMapper recommendMapper;
 	
@@ -34,16 +38,18 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public void register(RecommendDTO dto) {
-		System.out.println("=====================");
-		System.out.println(dto);
-		System.out.println("=====================");
+		
 		RecommendDTO obj = storeMapper.exist(dto);
-		if(obj == null) { 
+		if(obj == null) { // 처음 등록되는 곳인 경우 
 			storeMapper.register(dto);
 			recommendMapper.firstRegister(dto);
-		}else { 
+			log.info("파일 이미지들 : " + dto.getImages());
+		}else {  // 이미 등록된 가게에 대한 추천
 			dto.setStoreNumber(obj.getStoreNumber());
 			recommendMapper.plusRegister(dto);
+		}
+		if(dto.getImages().length !=0) { // 이미지 파일을 업로드 했다면...
+			recommendMapper.fileUpload(dto.getImages());
 		}
 		
 	}

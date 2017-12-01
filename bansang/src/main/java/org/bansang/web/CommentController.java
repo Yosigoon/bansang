@@ -31,7 +31,7 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-	//댓글 추가
+
 	@PostMapping("/add")
 	public void addComment(@RequestBody CommentDTO dto) {
 		log.info("===================");
@@ -41,17 +41,17 @@ public class CommentController {
 		commentService.commentRegister(dto);
 	}
 	
-	//댓글 리스트 가져오기
+	//�뙎湲� 由ъ뒪�듃 媛��졇�삤湲�
 	@GetMapping("/commentList/{recommendNumber}")
 	public List<CommentDTO> commentList(@PathVariable("recommendNumber") Long recommendNumber){
 //		log.info("===================");
-//		log.info("소속번호 : " + recommendNumber);		
+//		log.info("�냼�냽踰덊샇 : " + recommendNumber);		
 //		log.info("===================");
 		return commentService.commentList(recommendNumber);
 	}
 	
 	
-	//댓글 삭제
+	
 	@DeleteMapping("/delete/{commentNumber}")
 	public ResponseEntity<String> deleteComment(@PathVariable("commentNumber") Long commentNumber){
 		log.info("del recommendNumber: "+ commentNumber);
@@ -62,7 +62,7 @@ public class CommentController {
 		
 	}
 	
-	//댓글 수정
+	
 	@PutMapping("/modify/{commentNumber}")
 	public ResponseEntity<String> updateComment(@PathVariable("commentNumber") Long commentNumber, @RequestBody CommentDTO dto){
 		

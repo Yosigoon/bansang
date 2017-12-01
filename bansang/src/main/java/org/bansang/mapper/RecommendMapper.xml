@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.bansang.mapper.RecommendMapper">
+	<insert id="fileUpload" >
+	       insert into tbl_recommend_image (recommend_number, image_name) values
+	       <foreach item="image" collection="array" separator=",">  
+	       (LAST_INSERT_ID(), #{image})
+	       </foreach>
+	</insert>
+	 
+	<select id="getRecommendInfo" resultType = "RecommendDTO">
+		select store_name storeName, recommend_contents recommendContents from (
+			select * from tbl_recommend where recommend_number = #{recommendNumber}
+    		) t1, tbl_store t2 where t1.store_number = t2.store_number
+	</select>
+</mapper>

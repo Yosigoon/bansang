@@ -27,9 +27,6 @@ public class StoreController {
 	
 	@GetMapping("/list")
     public List<RecommendDTO> list(){
-		log.info("================");
-		log.info(""+storeService.list());
-		log.info("================");
 		return storeService.list();
     }
 	

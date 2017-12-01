@@ -4,8 +4,10 @@ package org.bansang.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.bansang.dto.RecommendDTO;
 
 public interface RecommendMapper {
@@ -19,4 +21,16 @@ public interface RecommendMapper {
 
 	@Select("select * from tbl_recommend where store_number = #{storeNumber}")
 	public List<RecommendDTO> selectList(Long storeNumber);
+
+	public void fileUpload(String[] images);
+
+	@Delete("delete from tbl_recommend where recommend_number = #{recommendNumber}")
+	public void deleteRecommend(Long recommendNumber);
+
+	public RecommendDTO getRecommendInfo(Long recommendNumber);
+
+	@Update("update tbl_recommend set recommend_contents= #{recommendContents} where recommend_number= #{recommendNumber}")
+	public void recommendModify(RecommendDTO dto);
+
+	
 }
