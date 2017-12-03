@@ -10,7 +10,7 @@ import org.bansang.dto.CommentDTO;
 
 public interface CommentMapper {
 	
-	@Insert("insert into tbl_comment (comment_contents, recommend_Number) values (#{commentContents}, #{recommendNumber})")
+	@Insert("insert into tbl_comment (comment_contents, recommend_number, member_id) values (#{commentContents}, #{recommendNumber}, 'hello')")
 	public void insertComment(CommentDTO dto);
 	
 	@Select("select * from tbl_comment where recommend_number = #{recommendNumber}")

@@ -49,6 +49,12 @@ public class RecommendServiceImpl implements RecommendService {
 		recommendMapper.recommendModify(dto);
 		return;
 	}	
+	
+	@Override
+	public RecommendDTO getInfo(Long recommendNumber) {
+		
+		return recommendMapper.selectInfo(recommendNumber);
+	}
 }
 
 

@@ -32,5 +32,8 @@ public interface RecommendMapper {
 	@Update("update tbl_recommend set recommend_contents= #{recommendContents} where recommend_number= #{recommendNumber}")
 	public void recommendModify(RecommendDTO dto);
 
+	@Select("select * from tbl_recommend where recommend_number = #{recommendNumber}")
+	public RecommendDTO selectInfo(Long recommendNumber);
+
 	
 }

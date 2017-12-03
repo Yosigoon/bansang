@@ -3,8 +3,10 @@ package org.bansang.web;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Header;
 import org.bansang.dto.CommentDTO;
+import org.bansang.dto.RecommendDTO;
 import org.bansang.mapper.CommentMapper;
 import org.bansang.service.CommentService;
+import org.bansang.service.RecommendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,8 +32,11 @@ public class CommentController {
 	
 	@Autowired
 	private CommentService commentService;
-	
 
+	@Autowired
+	private RecommendService recommendService;
+	
+	//댓글 추가
 	@PostMapping("/add")
 	public void addComment(@RequestBody CommentDTO dto) {
 		log.info("===================");
@@ -41,12 +46,9 @@ public class CommentController {
 		commentService.commentRegister(dto);
 	}
 	
-	//�뙎湲� 由ъ뒪�듃 媛��졇�삤湲�
+
 	@GetMapping("/commentList/{recommendNumber}")
 	public List<CommentDTO> commentList(@PathVariable("recommendNumber") Long recommendNumber){
-//		log.info("===================");
-//		log.info("�냼�냽踰덊샇 : " + recommendNumber);		
-//		log.info("===================");
 		return commentService.commentList(recommendNumber);
 	}
 	
@@ -70,6 +72,13 @@ public class CommentController {
 		commentService.commentModify(dto);
 		
 		return new ResponseEntity<String>("modify", HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/recommend/{recommendNumber}")
+	public RecommendDTO getInfo(@PathVariable("recommendNumber") Long recommendNumber) {
+		
+		return recommendService.getInfo(recommendNumber);
 	}
 
 }
