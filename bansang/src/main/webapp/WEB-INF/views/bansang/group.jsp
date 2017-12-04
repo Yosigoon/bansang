@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="/WEB-INF/views/include/header.jsp"%>
 
+<link rel="stylesheet" href="/resources/sweetalert2/dist/sweetalert2.min.css">
 <style>
 th, td {
 	text-align: center;
@@ -12,6 +13,9 @@ th, td {
 
 #groupLeader {
 	color: red;
+}
+.user-info{
+	padding-left : 0.5em;
 }
 
 </style>
@@ -49,12 +53,12 @@ th, td {
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><i class="ti-user"></i>
-							<p> 홍길동</p>
+					<li><a href="#"><i class="ti-user"> </i>
+							<p class="user-info">홍길동</p>
 					</a></li>
 					
-					<li><a href="#"> <i class="ti-shift-left"></i>
-							<p> Log Out</p>
+					<li><a href="#"> <i class="ti-shift-left"> </i>
+							<p class="user-info">Log Out</p>
 					</a></li>
 				</ul>
 
@@ -75,7 +79,7 @@ th, td {
 										<p class="category">If you add group, you enjoy service more</p>
 									</div>
 									<div class="col-xs-4 text-right">
-										<btn class="btn btn-sm btn-success btn-icon">
+										<btn id="excelBtn" class="btn btn-sm btn-success btn-icon">
 										<i class="ti-upload"></i> Excel Upload</btn>
 									</div>
 								</div>
@@ -197,10 +201,24 @@ th, td {
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 
+<script src="/resources/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<script src="/resources/sweetalert2/dist/sweetalert2.min.js"></script>
 <script type="text/javascript">
 	$("#groupList").on("click", ".moreBtn", function() {
 		$("#groupMember").hide('slow');
+		
 	});
+	$("#excelBtn").click(function(e){
+		e.preventDefault();
+		swal({
+			  title: 'Error!',
+			  text: 'Do you want to continue',
+			  type: 'error',
+			  confirmButtonText: 'Cool'
+			})
+	})
+	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 
