@@ -19,4 +19,8 @@ public interface RecommendMapper {
 
 	@Select("select * from tbl_recommend where store_number = #{storeNumber}")
 	public List<RecommendDTO> selectList(Long storeNumber);
+
+	@Select("select * from tbl_recommend where recommend_number = #{recommendNumber}")
+	public RecommendDTO selectInfo(Long recommendNumber);
+	
 }

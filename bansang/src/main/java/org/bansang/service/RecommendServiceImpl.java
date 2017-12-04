@@ -17,7 +17,13 @@ public class RecommendServiceImpl implements RecommendService {
 	@Override
 	public List<RecommendDTO> getList(Long storeNumber) {
 		return recommendMapper.selectList(storeNumber);
-	}	
+	}
+	
+	@Override
+	public RecommendDTO getInfo(Long recommendNumber) {
+		
+		return recommendMapper.selectInfo(recommendNumber);
+	}
 }
 
 
