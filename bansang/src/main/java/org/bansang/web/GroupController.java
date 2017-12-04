@@ -5,50 +5,71 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
 
+import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 import org.bansang.service.GroupService;
 import org.bansang.util.ReadGroupExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.java.Log;
 
-@Controller
+@CrossOrigin(origins = "*")
+@RestController
 @RequestMapping("/bansang/*")
 @Log
 public class GroupController {
 
 	@Autowired
 	GroupService groupService;
-		
+
+	@GetMapping("/groupList")
+	public @ResponseBody List<GroupDTO> groupList() {
+		log.info("Group List: " + groupService.groupList());
+		return groupService.groupList();
+	}
+	
+	@GetMapping("/groupMemberList/{groupNumber}")
+	public @ResponseBody List<GroupMemberDTO> groupMemberList(@PathVariable("groupNumber") Long groupNumber) {
+		log.info("Group Member List: " + groupService.groupMemberList(groupNumber));
+		return groupService.groupMemberList(groupNumber);
+	}
+
 	@GetMapping("/register")
 	public void uploadExcelFileGet() {
-		
+		// return groupService.
 	}
 
 	@PostMapping("/")
 	public void uploadExcelFile(@RequestParam("file") MultipartFile file, String groupName) throws Exception {
-		
-        log.info("======= UPLOAD =======");        
 
-        UUID uuid = UUID.randomUUID();
-        String uploadName = uuid.toString() + "_" + file.getOriginalFilename();
-        String filePath = "C:\\zzz\\zupload\\" + uploadName;
-        OutputStream out = new FileOutputStream(filePath);
-        FileCopyUtils.copy(file.getInputStream(), out);
-        
-        ReadGroupExcel excel = new ReadGroupExcel();
-        List<GroupMemberDTO> list = excel.readGroupFromExcelFile(filePath);
-        
-    	for (GroupMemberDTO groupMemberDTO : list) {
+		log.info("======= UPLOAD =======");
 
-    		groupService.upload(groupMemberDTO);			
+		UUID uuid = UUID.randomUUID();
+		String uploadName = uuid.toString() + "_" + file.getOriginalFilename();
+		String filePath = "C:\\zzz\\zupload\\" + uploadName;
+		OutputStream out = new FileOutputStream(filePath);
+		FileCopyUtils.copy(file.getInputStream(), out);
+
+		ReadGroupExcel excel = new ReadGroupExcel();
+		List<GroupMemberDTO> list = excel.readGroupFromExcelFile(filePath);
+
+		for (GroupMemberDTO groupMemberDTO : list) {
+			groupService.upload(groupMemberDTO);
 		}
+
+		// for (int i = 0 ; i < list.size() ; i++) {
+		//
+		// }
 	}
 }
