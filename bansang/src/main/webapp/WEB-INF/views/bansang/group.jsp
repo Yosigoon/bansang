@@ -89,7 +89,7 @@ th, td {
 									</div>
 									<div class="col-xs-4 text-right">
 										<btn id="exceldownBtn" class="btn btn-sm btn-success btn-icon">
-										<i class="ti-download"></i> Download</btn>
+										<i class="ti-download"></i> Download</btn></a>
 										<btn id="excelupBtn" class="btn btn-sm btn-success btn-icon">
 										<i class="ti-plus"></i> Register</btn>
 									</div>
@@ -208,6 +208,8 @@ th, td {
 	</div>
 </div>
 
+<form id='actionForm' method="get"></form>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -217,6 +219,9 @@ th, td {
 <script src="/resources/sweetalert2/dist/sweetalert2.min.js"></script>
 <script type="text/javascript" src="/resources/js/ip.js"></script>
 <script type="text/javascript">
+
+	var actionForm = $("#actionForm");
+
 	$("#groupList").on("click", ".moreBtn", function() {
 		$("#groupMember").hide('slow');
 		
@@ -246,6 +251,10 @@ th, td {
             }
         });
     });
+	$("#exceldownBtn").click(function(e){
+		var fileName = "group.xlsx";
+		actionForm.attr("action", IP+"bansang/download/" + fileName).submit();
+	});
 	$("#excelupBtn").click(function(e){
 		e.preventDefault();
 		swal({
