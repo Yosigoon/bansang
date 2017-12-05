@@ -21,6 +21,9 @@
 				<li><a href="/bansang/group"> <i class="ti-view-list-alt"></i>
 						<p>Group</p>
 				</a></li>
+				<li><a href="/bansang/storeManagement"> <i class="ti-desktop"></i>
+						<p>StoreManagement</p>
+				</a></li>
 			</ul>
 		</div>
 	</div>
@@ -143,13 +146,6 @@
 						</div>
 					</div>
 				</div>
-
-
-
-
-
-
-
 
 
 				<div class="row">

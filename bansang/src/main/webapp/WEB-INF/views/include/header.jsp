@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/resources/assets/css/animate.min.css" />
-	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css?ver=2" />
+	<link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css?ver=3" />
 	<link rel="stylesheet" href="/resources/assets/css/paper-dashboard.css" />
 	
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">

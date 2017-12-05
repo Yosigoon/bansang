@@ -8,9 +8,6 @@
 		<script src="/resources/assets/js/chartist.min.js"></script>
 		<script src="/resources/assets/js/bootstrap-notify.js"></script>
 		<script src="/resources/assets/js/paper-dashboard.js"></script>
-		
-		
-
 </body>
 
 </html>

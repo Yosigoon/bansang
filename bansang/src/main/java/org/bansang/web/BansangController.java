@@ -20,4 +20,9 @@ public class BansangController {
 	public void getGroup() {
 		return;
 	}
+	
+	@GetMapping("/storeManagement")
+	public void getStore() {
+		return;
+	}
 }
