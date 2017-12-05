@@ -6,16 +6,25 @@
 <%@include file="/WEB-INF/views/include/header.jsp"%>
 
 <link rel="stylesheet" href="/resources/sweetalert2/dist/sweetalert2.min.css">
+
 <style>
 th, td {
 	text-align: center;
 }
 
-#groupLeader {
+.group-leader {
 	color: red;
 }
 .user-info{
 	padding-left : 0.5em;
+}
+
+.sw-top{
+	margin-top: 1em;
+}
+
+.sw-center{
+	display: inline;
 }
 
 </style>
@@ -79,8 +88,10 @@ th, td {
 										<p class="category">If you add group, you enjoy service more</p>
 									</div>
 									<div class="col-xs-4 text-right">
-										<btn id="excelBtn" class="btn btn-sm btn-success btn-icon">
-										<i class="ti-upload"></i> Excel Upload</btn>
+										<btn id="exceldownBtn" class="btn btn-sm btn-success btn-icon">
+										<i class="ti-download"></i> Download</btn>
+										<btn id="excelupBtn" class="btn btn-sm btn-success btn-icon">
+										<i class="ti-plus"></i> Register</btn>
 									</div>
 								</div>
 							</div>
@@ -154,7 +165,7 @@ th, td {
 												</div>
 											</div>
 											<div class="col-xs-6">
-												<span>아무개1</span><i id="groupLeader" class="fa ti-crown"></i>
+												<span>아무개1</span><i class="group-leader fa ti-crown"></i>
 												<br /> <span class="text-muted"><small>Not a
 														service user</small></span>
 											</div>
@@ -204,19 +215,80 @@ th, td {
 <script src="/resources/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 <script src="/resources/sweetalert2/dist/sweetalert2.min.js"></script>
+<script type="text/javascript" src="/resources/js/ip.js"></script>
 <script type="text/javascript">
 	$("#groupList").on("click", ".moreBtn", function() {
 		$("#groupMember").hide('slow');
 		
 	});
-	$("#excelBtn").click(function(e){
+	$('body').on("click", "#excelSubmit", function (e) {
+		e.preventDefault();
+		
+		
+		var formData = new FormData();  
+		
+        formData.append("file", $("#excelFile")[0].files[0]);
+		$.ajax({
+            url : IP + 'group/excelUpload',
+            data : formData,
+            dataType : 'text',
+            processData : false, 
+            contentType : false,
+            type : 'POST',
+            success : function(returnData) {
+            	swal({
+          		  position: 'center',
+          		  type: 'success',
+          		  title: 'Your work has been saved',
+          		  showConfirmButton: false,
+          		  timer: 1000
+          		})
+            }
+        });
+    });
+	$("#excelupBtn").click(function(e){
 		e.preventDefault();
 		swal({
-			  title: 'Error!',
-			  text: 'Do you want to continue',
-			  type: 'error',
-			  confirmButtonText: 'Cool'
+			  title: '<i>Group Register</i>',
+			  html:
+				  	"<br><input class='sw-top sw-center' type='file' name='excelFile' id='excelFile'/> "+
+				  	"<input id='excelSubmit' type='submit'/> "+
+				  	"<form id='groupRegisterBtn'>"+
+				  	"<hr>그룹이름 : <input type='text' id='groupName' name='groupName'>" +
+				  	"<br>그룹인원 : <input class='sw-top' type='text' id='groupMemberCount' name='groupMemberCount' readonly placeholder='Please Upload Excel..'>" +
+					"<br>그룹리더 : <input class='sw-top' type='text' id='groupLeader' name='groupLeader'>"+
+					"</form>",
+			  showCloseButton: true,
+			  showCancelButton: true,
+			  focusConfirm: false,
+			  confirmButtonText:
+			    'Register',
+			  cancelButtonText:
+			  'Cancel',
+			  
+		}).then((result) => {
+			  if (result.value) {
+				  
+						//actionForm.append("<input type='hidden' name='bno' value='${board.bno}'>");
+						//actionForm.attr("method", "post").attr("action","/board/remove").submit();
+					
+			        //swal({
+	            		//  position: 'center',
+	            		  //type: 'success',
+	            		  //title: 'Your work has been saved',
+	            		  //showConfirmButton: false,
+	            		  //timer: 1000
+	            		//})
+	            		
+	            		//action='"+IP+"group/register'
+	            		
+	            		
+				  
+			  }
 			})
+		
+		
+		
 	})
 	
 </script>

@@ -32,18 +32,11 @@ public class StoreController {
 	
 	@GetMapping("/view")
 	public RecommendDTO getView(Long storeNumber) {
-		log.info("================");
-		log.info(""+storeService.view(storeNumber));
-		log.info("================");
 		return storeService.view(storeNumber);
 	}
 	
 	@PostMapping("/recommend")
 	public void addValue(@RequestBody RecommendDTO dto){
-		log.info("================");
-		log.info("" + dto);
-		log.info("================");
-		
 		storeService.register(dto);
 	}
 	

@@ -6,6 +6,7 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 import org.bansang.dto.RecommendDTO;
 import org.bansang.mapper.RecommendMapper;
 import org.bansang.mapper.StoreMapper;
+import org.bansang.util.Crolling;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.java.Log;
@@ -41,9 +42,15 @@ public class StoreServiceImpl implements StoreService {
 		
 		RecommendDTO obj = storeMapper.exist(dto);
 		if(obj == null) { // 처음 등록되는 곳인 경우 
+			Crolling crolling = new Crolling();
+			try {
+				crolling.crollingFiles(dto.getStoreName());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			storeMapper.register(dto);
 			recommendMapper.firstRegister(dto);
-			log.info("파일 이미지들 : " + dto.getImages());
+			
 		}else {  // 이미 등록된 가게에 대한 추천
 			dto.setStoreNumber(obj.getStoreNumber());
 			recommendMapper.plusRegister(dto);
