@@ -1,5 +1,8 @@
 package org.bansang.service;
 
+import java.util.List;
+
+import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 import org.bansang.mapper.GroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,18 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public void upload(GroupMemberDTO groupMemberDTO) {
-
+		// groupMapper.insertGroup(groupDTO);
 		groupMapper.insertMember(groupMemberDTO);
+	}
+
+	@Override
+	public List<GroupDTO> groupList() {
+
+		return groupMapper.groupList();
+	}
+
+	@Override
+	public List<GroupMemberDTO> groupMemberList(Long groupNumber) {
+		return groupMapper.groupMemberList(groupNumber);
 	}
 }

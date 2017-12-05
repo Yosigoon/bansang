@@ -27,26 +27,16 @@ public class StoreController {
 	
 	@GetMapping("/list")
     public List<RecommendDTO> list(){
-		log.info("================");
-		log.info(""+storeService.list());
-		log.info("================");
 		return storeService.list();
     }
 	
 	@GetMapping("/view")
 	public RecommendDTO getView(Long storeNumber) {
-		log.info("================");
-		log.info(""+storeService.view(storeNumber));
-		log.info("================");
 		return storeService.view(storeNumber);
 	}
 	
 	@PostMapping("/recommend")
 	public void addValue(@RequestBody RecommendDTO dto){
-		log.info("================");
-		log.info("" + dto);
-		log.info("================");
-		
 		storeService.register(dto);
 	}
 	

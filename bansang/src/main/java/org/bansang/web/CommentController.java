@@ -32,7 +32,7 @@ public class CommentController {
 	
 	@Autowired
 	private CommentService commentService;
-	
+
 	@Autowired
 	private RecommendService recommendService;
 	
@@ -46,17 +46,14 @@ public class CommentController {
 		commentService.commentRegister(dto);
 	}
 	
-	//댓글 리스트 가져오기
+
 	@GetMapping("/commentList/{recommendNumber}")
 	public List<CommentDTO> commentList(@PathVariable("recommendNumber") Long recommendNumber){
-//		log.info("===================");
-//		log.info("소속번호 : " + recommendNumber);		
-//		log.info("===================");
 		return commentService.commentList(recommendNumber);
 	}
 	
 	
-	//댓글 삭제
+	
 	@DeleteMapping("/delete/{commentNumber}")
 	public ResponseEntity<String> deleteComment(@PathVariable("commentNumber") Long commentNumber){
 		log.info("del recommendNumber: "+ commentNumber);
@@ -67,7 +64,7 @@ public class CommentController {
 		
 	}
 	
-	//댓글 수정
+	
 	@PutMapping("/modify/{commentNumber}")
 	public ResponseEntity<String> updateComment(@PathVariable("commentNumber") Long commentNumber, @RequestBody CommentDTO dto){
 		
