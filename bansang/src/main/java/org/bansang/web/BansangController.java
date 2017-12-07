@@ -52,4 +52,10 @@ public class BansangController {
 		}
         return entity;
     }
+
+	@GetMapping("/storeManagement")
+	public void getStore() {
+		return;
+	}
+
 }
