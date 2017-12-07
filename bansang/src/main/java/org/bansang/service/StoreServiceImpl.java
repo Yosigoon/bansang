@@ -34,9 +34,6 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public void register(RecommendDTO dto) {
-		System.out.println("=====================");
-		System.out.println(dto);
-		System.out.println("=====================");
 		RecommendDTO obj = storeMapper.exist(dto);
 		if(obj == null) { 
 			storeMapper.register(dto);
