@@ -6,7 +6,10 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 import org.bansang.dto.RecommendDTO;
 import org.bansang.mapper.RecommendMapper;
 import org.bansang.mapper.StoreMapper;
+import org.bansang.util.Crolling;
 import org.springframework.stereotype.Service;
+
+import lombok.extern.java.Log;
 
 import java.util.List;
 
@@ -14,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Service
+@Log
 public class StoreServiceImpl implements StoreService {
 
 	@Autowired
 	StoreMapper storeMapper;
+	
 	@Inject
 	private RecommendMapper recommendMapper;
 	
@@ -34,20 +39,34 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public void register(RecommendDTO dto) {
+
+		int count = 3;
 		RecommendDTO obj = storeMapper.exist(dto);
-		if(obj == null) { 
+		if(obj == null) { // ó�� ��ϵǴ� ���� ��� 
+			for (int i = 0; i < count; i++) {
+				try {	
+				Crolling crolling = new Crolling((i+1), dto.getStoreName());
+				crolling.start();
+				} catch (Exception e) {
+					
+				}
+			}
+			
 			storeMapper.register(dto);
 			recommendMapper.firstRegister(dto);
-		}else { 
+			
+		}else {  // �̹� ��ϵ� ���Կ� ���� ��õ
 			dto.setStoreNumber(obj.getStoreNumber());
 			recommendMapper.plusRegister(dto);
+		}
+		if(dto.getImages().length !=0) { // �̹��� ������ ���ε� �ߴٸ�...
+			recommendMapper.fileUpload(dto.getImages());
 		}
 		
 	}
 
 	@Override
 	public RecommendDTO getInfo(Long storeNum) {
-		
 		return storeMapper.selectInfo(storeNum);
 	}
 

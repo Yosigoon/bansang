@@ -15,5 +15,8 @@ public class RecommendDTO {
 	private Double latitude;
 	private Double longitude;
 	private String areaKeyword;
+	private String[] images;
 
 }
+
+

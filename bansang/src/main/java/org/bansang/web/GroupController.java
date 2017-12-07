@@ -1,16 +1,15 @@
 package org.bansang.web;
 
+
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
-
 import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 import org.bansang.service.GroupService;
 import org.bansang.util.ReadGroupExcel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ import lombok.extern.java.Log;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/bansang/*")
+@RequestMapping("/group/*")
 @Log
 public class GroupController {
 
@@ -45,31 +44,25 @@ public class GroupController {
 		return groupService.groupMemberList(groupNumber);
 	}
 
-	@GetMapping("/register")
-	public void uploadExcelFileGet() {
-		// return groupService.
-	}
 
-	@PostMapping("/")
-	public void uploadExcelFile(@RequestParam("file") MultipartFile file, String groupName) throws Exception {
+	@PostMapping("/excelUpload")
+	public void uploadExcelFile(@RequestParam("file") MultipartFile file) throws Exception {
 
-		log.info("======= UPLOAD =======");
-
-		UUID uuid = UUID.randomUUID();
+		log.info("======= Group Upload =======");
+		
+		UUID uuid = UUID.randomUUID(); // 유니크한 이름
 		String uploadName = uuid.toString() + "_" + file.getOriginalFilename();
-		String filePath = "C:\\zzz\\zupload\\" + uploadName;
+		String filePath = "C:\\zzz\\excel\\" + uploadName;
 		OutputStream out = new FileOutputStream(filePath);
 		FileCopyUtils.copy(file.getInputStream(), out);
 
 		ReadGroupExcel excel = new ReadGroupExcel();
-		List<GroupMemberDTO> list = excel.readGroupFromExcelFile(filePath);
+		GroupDTO dto = excel.readGroupFromExcelFile(filePath);
 
-		for (GroupMemberDTO groupMemberDTO : list) {
-			groupService.upload(groupMemberDTO);
-		}
 
-		// for (int i = 0 ; i < list.size() ; i++) {
-		//
-		// }
+		groupService.upload(dto);
+		
 	}
+	
+
 }
