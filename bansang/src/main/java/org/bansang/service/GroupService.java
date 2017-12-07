@@ -7,7 +7,7 @@ import org.bansang.dto.GroupMemberDTO;
 
 public interface GroupService {
 
-	public void upload(GroupMemberDTO groupMemberDTO);
+	public void upload(GroupDTO dto);
 
 	public List<GroupDTO> groupList();
 	

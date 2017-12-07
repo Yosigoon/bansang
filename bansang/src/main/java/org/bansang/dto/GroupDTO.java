@@ -1,6 +1,7 @@
 package org.bansang.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,4 +13,5 @@ public class GroupDTO {
 	private String groupLeader;
 	private Long groupMemberCount;
 	private Date registerDate;
+	private List<GroupMemberDTO> list;
 }

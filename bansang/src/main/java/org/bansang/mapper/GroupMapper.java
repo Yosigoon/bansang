@@ -15,9 +15,9 @@ public interface GroupMapper {
 	@Select("select * from tbl_group_member where group_number = #{groupNumber}")
 	public List<GroupMemberDTO> groupMemberList(Long groupNumber);
 
-	@Insert("insert into tbl_group_member (member_name, member_email, group_number) values (#{memberName}, #{memberEmail}, #{groupNumber})")
-	public void insertMember(GroupMemberDTO dto);
+	
+	@Insert("insert into tbl_group (group_name, group_leader, group_member_count) values (#{groupName}, #{groupLeader}, #{groupMemberCount})")
+	public void GroupRegister(GroupDTO dto);
 
-	@Insert("insert into tbl_group (group_name) values #{groupName}")
-	public void insertGroup(GroupDTO groupDTO);
+	public void GroupMemberRegister(List<GroupMemberDTO> list);
 }

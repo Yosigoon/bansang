@@ -19,12 +19,10 @@ th, td {
 	padding-left : 0.5em;
 }
 
-.sw-top{
-	margin-top: 1em;
-}
 
 .sw-center{
 	display: inline;
+	padding-left : 4.5em;
 }
 
 </style>
@@ -260,13 +258,9 @@ th, td {
 		swal({
 			  title: '<i>Group Register</i>',
 			  html:
-				  	"<br><input class='sw-top sw-center' type='file' name='excelFile' id='excelFile'/> "+
-				  	"<input id='excelSubmit' type='submit'/> "+
-				  	"<form id='groupRegisterBtn'>"+
-				  	"<hr>그룹이름 : <input type='text' id='groupName' name='groupName'>" +
-				  	"<br>그룹인원 : <input class='sw-top' type='text' id='groupMemberCount' name='groupMemberCount' readonly placeholder='Please Upload Excel..'>" +
-					"<br>그룹리더 : <input class='sw-top' type='text' id='groupLeader' name='groupLeader'>"+
-					"</form>",
+				  "<form id='fileForm'>"+
+				  "<br><input class='sw-center' type='file' name='excelFile' id='excelFile'/> "+
+				  "</form>",
 			  showCloseButton: true,
 			  showCancelButton: true,
 			  focusConfirm: false,
@@ -277,28 +271,34 @@ th, td {
 			  
 		}).then((result) => {
 			  if (result.value) {
+				  var formData = new FormData();  
+				  formData.append("file", $("#excelFile")[0].files[0]);
 				  
-						//actionForm.append("<input type='hidden' name='bno' value='${board.bno}'>");
-						//actionForm.attr("method", "post").attr("action","/board/remove").submit();
-					
-			        //swal({
-	            		//  position: 'center',
-	            		  //type: 'success',
-	            		  //title: 'Your work has been saved',
-	            		  //showConfirmButton: false,
-	            		  //timer: 1000
-	            		//})
-	            		
-	            		//action='"+IP+"group/register'
-	            		
-	            		
 				  
+				  $.ajax({
+					  url : IP + 'group/excelUpload',
+					  data : formData,
+					  dataType : 'text',
+					  processData : false, 
+					  contentType : false,
+					  type : 'POST',
+					  success : function(returnData) {
+						  swal({
+			              	position: 'center',
+			            	type: 'success',
+			            	title: 'Your work has been saved',
+			            	showConfirmButton: false,
+			            	timer: 1000
+			              })
+					  }
+				  });
 			  }
 			})
-		
-		
-		
 	})
+	
+
+	
+
 	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>

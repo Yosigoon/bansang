@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 import org.bansang.service.GroupService;
+import org.bansang.util.ReadGroupExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,12 +56,12 @@ public class GroupController {
 		OutputStream out = new FileOutputStream(filePath);
 		FileCopyUtils.copy(file.getInputStream(), out);
 
-//		ReadGroupExcel excel = new ReadGroupExcel();
-//		List<GroupMemberDTO> list = excel.readGroupFromExcelFile(filePath);
-//
-//		for (GroupMemberDTO groupMemberDTO : list) {
-//			groupService.upload(groupMemberDTO);
-//		}
+		ReadGroupExcel excel = new ReadGroupExcel();
+		GroupDTO dto = excel.readGroupFromExcelFile(filePath);
+
+
+		groupService.upload(dto);
+		
 	}
 	
 

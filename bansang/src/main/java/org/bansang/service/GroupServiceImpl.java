@@ -15,9 +15,9 @@ public class GroupServiceImpl implements GroupService {
 	GroupMapper groupMapper;
 
 	@Override
-	public void upload(GroupMemberDTO groupMemberDTO) {
-		// groupMapper.insertGroup(groupDTO);
-		groupMapper.insertMember(groupMemberDTO);
+	public void upload(GroupDTO dto) {
+		groupMapper.GroupRegister(dto);
+		groupMapper.GroupMemberRegister(dto.getList());
 	}
 
 	@Override

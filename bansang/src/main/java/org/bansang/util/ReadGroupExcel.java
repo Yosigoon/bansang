@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 
 import lombok.extern.java.Log;
@@ -21,7 +22,7 @@ import lombok.extern.java.Log;
 public class ReadGroupExcel {
 
 
-	public List<GroupMemberDTO> readGroupFromExcelFile(String excelFilePath) throws IOException {
+	public GroupDTO readGroupFromExcelFile(String excelFilePath) throws IOException {
 	    List<GroupMemberDTO> listGroup = new ArrayList<GroupMemberDTO>();
 	    FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 	 
@@ -30,35 +31,44 @@ public class ReadGroupExcel {
 	    Iterator<Row> iterator = firstSheet.iterator();
 	    
 	    iterator.next();
-	 
+	    GroupDTO groupDto = new GroupDTO();
+	    
 	    while (iterator.hasNext()) {
 	        Row nextRow = iterator.next();
 	        Iterator<Cell> cellIterator = nextRow.cellIterator();
-	        GroupMemberDTO dto = new GroupMemberDTO();
-	 
+	        
+	        GroupMemberDTO groupMemberDto = new GroupMemberDTO();
 	        while (cellIterator.hasNext()) {
 	            Cell nextCell = cellIterator.next();
 	            int columnIndex = nextCell.getColumnIndex();
-	            log.info("===================");
-	            log.info("" + columnIndex + ", " + (String)getCellValue(nextCell));
-	            log.info("===================");
-	 
+	            
 	            switch (columnIndex) {
 	            case 0:
-	                dto.setMemberName((String) getCellValue(nextCell));
-	                break;
+	            	groupDto.setGroupName((String) getCellValue(nextCell));
+	                break;	           
 	            case 1:
-	                dto.setMemberEmail((String) getCellValue(nextCell));
-	                break;
+	            	groupDto.setGroupLeader((String) getCellValue(nextCell));
+	            	break;
+	            case 2:
+	            	groupMemberDto.setMemberName((String) getCellValue(nextCell));
+	            	break;
+	            case 3:
+	            	groupMemberDto.setMemberId((String) getCellValue(nextCell));
+	            	break;
 	            }
+	            
 	        }
-	        listGroup.add(dto);
-	    }
-	 
+	        if(groupMemberDto.getMemberName() !=null && groupMemberDto.getMemberId() != null) {
+	        	listGroup.add(groupMemberDto);
+	        }
+	        groupMemberDto = null;
+	    }  
+	    groupDto.setList(listGroup);
+	    groupDto.setGroupMemberCount(new Long(listGroup.size()));
 	    workbook.close();
 	    inputStream.close();
 	 
-	    return listGroup;
+	    return groupDto;
 	}
 	
 

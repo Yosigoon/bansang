@@ -39,15 +39,18 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public void register(RecommendDTO dto) {
-		
+		int count = 3;
 		RecommendDTO obj = storeMapper.exist(dto);
 		if(obj == null) { // 처음 등록되는 곳인 경우 
-			Crolling crolling = new Crolling();
-			try {
-				crolling.crollingFiles(dto.getStoreName());
-			} catch (Exception e) {
-				e.printStackTrace();
+			for (int i = 0; i < count; i++) {
+				try {	
+				Crolling crolling = new Crolling((i+1), dto.getStoreName());
+				crolling.start();
+				} catch (Exception e) {
+					
+				}
 			}
+			
 			storeMapper.register(dto);
 			recommendMapper.firstRegister(dto);
 			
@@ -63,7 +66,6 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public RecommendDTO getInfo(Long storeNum) {
-		
 		return storeMapper.selectInfo(storeNum);
 	}
 
