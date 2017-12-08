@@ -110,16 +110,6 @@ swiper-slide {
 											<div class="swiper-container">
 												<div class="swiper-container gallery-top">
 													<div class="swiper-wrapper">
-														<img class="swiper-slide" src="/resources/img/food01.jpg">
-														<img class="swiper-slide" src="/resources/img/food02.jpg">
-														<img class="swiper-slide" src="/resources/img/food03.jpg">
-														<img class="swiper-slide" src="/resources/img/food04.jpg">
-														<img class="swiper-slide" src="/resources/img/food01.jpg">
-														<img class="swiper-slide" src="/resources/img/food02.jpg">
-														<img class="swiper-slide" src="/resources/img/food03.jpg">
-														<img class="swiper-slide" src="/resources/img/food04.jpg">
-														<img class="swiper-slide" src="/resources/img/food03.jpg">
-														<img class="swiper-slide" src="/resources/img/food04.jpg">
 													</div>
 												</div>
 											</div>
@@ -148,16 +138,8 @@ swiper-slide {
 												<div class="swiper-container">
 													<div class="swiper-container gallery-thumbs">
 														<div class="swiper-wrapper" style="width: 50%">
-															<img class="swiper-slide" src="/resources/img/food01.jpg">
-															<img class="swiper-slide" src="/resources/img/food02.jpg">
-															<img class="swiper-slide" src="/resources/img/food03.jpg">
-															<img class="swiper-slide" src="/resources/img/food04.jpg">
-															<img class="swiper-slide" src="/resources/img/food01.jpg">
-															<img class="swiper-slide" src="/resources/img/food02.jpg">
-															<img class="swiper-slide" src="/resources/img/food03.jpg">
-															<img class="swiper-slide" src="/resources/img/food04.jpg">
-															<img class="swiper-slide" src="/resources/img/food03.jpg">
-															<img class="swiper-slide" src="/resources/img/food04.jpg">
+															
+															
 														</div>
 														<!-- Add Arrows -->
 														<div class="swiper-button-next swiper-button-red"></div>
@@ -248,14 +230,23 @@ swiper-slide {
 					});
 
 	/* 취소 */
-	$(".btn[data-oper='can']")
-			.click(
-					function(e) {
-						actionForm.append("<input type='hidden' name='page' value='${cri.page}'>");
-						actionForm.append("<input type='hidden' name='searchType' value='${cri.searchType}'>");
-						actionForm.append("<input type='hidden' name='keyword' value='${cri.keyword}'>");
-						actionForm.attr("action", "/bansang/storeManagement").submit();
-					});
+	$(".btn[data-oper='can']").click(function(e) {
+		actionForm.append("<input type='hidden' name='page' value='${cri.page}'>");
+		actionForm.append("<input type='hidden' name='searchType' value='${cri.searchType}'>");
+		actionForm.append("<input type='hidden' name='keyword' value='${cri.keyword}'>");
+		actionForm.attr("action", "/bansang/storeManagement").submit();
+	});
 	
+	function getStoreImages() {
+		
+        $.getJSON(IP + 'upload/storeImages/' + ${info.storeNumber}, function (arr) { // DB에 저장된 이미지 이름 배열을 들고옴
+            for(var i = 0; i < arr.length; i++){
+				var str = "<img class='swiper-slide' src='"+ IP + "upload/showStoreImages/" + arr[i] +"'>";
+				galleryThumbs.appendSlide(str);
+				galleryTop.appendSlide(str);
+            };
+        });
+    }
+	getStoreImages();
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>

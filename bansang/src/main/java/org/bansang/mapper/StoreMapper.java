@@ -27,6 +27,9 @@ public interface StoreMapper {
 
 	@Insert("insert into tbl_store_image (image_name, store_number) values (#{uploadName}, #{storeNumber})")
 	public void uploadStoreImage(@Param("uploadName") String uploadName, @Param("storeNumber") Long storeNumber);
+
+	@Select("select image_name imageName from tbl_store_image where store_number = #{storeNumber}")
+	public List<String> getImageList(Long storeNumber);
 	
 }
 
