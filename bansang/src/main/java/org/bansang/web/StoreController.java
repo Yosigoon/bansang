@@ -35,14 +35,10 @@ public class StoreController {
 	@GetMapping("/view")
 	public RecommendDTO getView(Long storeNumber) {
 
-		log.info("================");
-		log.info("" + storeService.view(storeNumber));
-		log.info("================");
-
 		return storeService.view(storeNumber);
 	}
 
-
+	@PostMapping("/recommend")
 	public void addValue(@RequestBody RecommendDTO dto){
 		storeService.register(dto);
 	}
@@ -58,13 +54,13 @@ public class StoreController {
 
 		log.info("");
 
-		String clientId = "JU1ZHvkqIuJ2itqjbi6v";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "w55QlDJ26S";// 애플리케이션 클라이언트 시크릿값";
+		String clientId = "JU1ZHvkqIuJ2itqjbi6v";
+		String clientSecret = "w55QlDJ26S";
 		
 		try {
-			String text = URLEncoder.encode("강남역 맛집", "UTF-8");
-			String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text; // json 결과
-			// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
+			String text = URLEncoder.encode("媛뺣궓�뿭 留쏆쭛", "UTF-8");
+			String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text; 
+			// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; 
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
@@ -72,9 +68,9 @@ public class StoreController {
 			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			if (responseCode == 200) { // 정상 호출
+			if (responseCode == 200) { // �젙�긽 �샇異�
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // 에러 발생
+			} else { // �뿉�윭 諛쒖깮
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;

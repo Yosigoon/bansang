@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 
@@ -17,7 +18,10 @@ public interface GroupMapper {
 
 	
 	@Insert("insert into tbl_group (group_name, group_leader, group_member_count) values (#{groupName}, #{groupLeader}, #{groupMemberCount})")
-	public void GroupRegister(GroupDTO dto);
+	public void groupRegister(GroupDTO dto);
 
-	public void GroupMemberRegister(List<GroupMemberDTO> list);
+	public void groupMemberRegister(List<GroupMemberDTO> list);
+
+	@Update("call group_member_update(LAST_INSERT_ID())")
+	public void groupMembershipUpdate();
 }

@@ -62,9 +62,7 @@ public class RecommendController {
 	
 	@PutMapping("/modify/{recommendNumber}")
 	public ResponseEntity<String> updateRecommend(@PathVariable("recommendNumber") Long recommendNumber, @RequestBody RecommendDTO dto){
-//		log.info("================");
-//		log.info(""+ dto);
-//		log.info("================");
+
 		recommendService.recommendModify(dto);
 		
 		return new ResponseEntity<String>("modify", HttpStatus.OK);

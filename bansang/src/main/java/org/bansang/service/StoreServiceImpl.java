@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.java.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,22 +41,28 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public void register(RecommendDTO dto) {
 
-		int count = 3;
+		int count = 5;
 		RecommendDTO obj = storeMapper.exist(dto);
-		if(obj == null) { // ó�� ��ϵǴ� ���� ��� 
+		if(obj == null) {
+			
+			Long storeNumber = storeMapper.register(dto);
+			System.out.println("==================");
+			System.out.println(storeNumber);
+			System.out.println("==================");
+			List<String> storeImageName = new ArrayList<String>();
 			for (int i = 0; i < count; i++) {
 				try {	
-				Crolling crolling = new Crolling((i+1), dto.getStoreName());
-				crolling.start();
-				} catch (Exception e) {
+					Crolling crolling = new Crolling((i+1), dto.getStoreName(), storeMapper, storeNumber);
+					crolling.start();
 					
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 			
-			storeMapper.register(dto);
 			recommendMapper.firstRegister(dto);
 			
-		}else {  // �̹� ��ϵ� ���Կ� ���� ��õ
+		}else {  
 			dto.setStoreNumber(obj.getStoreNumber());
 			recommendMapper.plusRegister(dto);
 		}

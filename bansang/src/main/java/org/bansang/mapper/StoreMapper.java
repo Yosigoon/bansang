@@ -1,6 +1,7 @@
 package org.bansang.mapper;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.bansang.dto.RecommendDTO;
 
@@ -8,8 +9,8 @@ import java.util.List;
 
 public interface StoreMapper {
 	
-	@Insert("insert into tbl_store (store_name, store_address, latitude, longitude, area_keyword) values (#{storeName}, #{storeAddress}, #{latitude}, #{longitude}, #{areaKeyword} )")
-    public void register(RecommendDTO dto);
+	@Select("call store_first_register(#{storeName}, #{storeAddress}, #{latitude}, #{longitude}, #{areaKeyword})")
+    public Long register(RecommendDTO dto);
 
 	@Select("select * from tbl_store")
 	public List<RecommendDTO> listPage();
@@ -23,6 +24,9 @@ public interface StoreMapper {
 
 	@Select("select * from tbl_store where store_number = #{storeNumber}")
     public RecommendDTO selectInfo(Long storeNumber);
+
+	@Insert("insert into tbl_store_image (image_name, store_number) values (#{uploadName}, #{storeNumber})")
+	public void uploadStoreImage(@Param("uploadName") String uploadName, @Param("storeNumber") Long storeNumber);
 	
 }
 
