@@ -34,7 +34,7 @@ public class GroupController {
 
 	@GetMapping("/groupList")
 	public @ResponseBody List<GroupDTO> groupList() {
-		log.info("Group List: " + groupService.groupList());
+		log.info("===============Group List: " + groupService.groupList());
 		return groupService.groupList();
 	}
 	
@@ -50,7 +50,7 @@ public class GroupController {
 
 		log.info("======= Group Upload =======");
 		
-		UUID uuid = UUID.randomUUID(); // À¯´ÏÅ©ÇÑ ÀÌ¸§
+		UUID uuid = UUID.randomUUID(); // ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Ì¸ï¿½
 		String uploadName = uuid.toString() + "_" + file.getOriginalFilename();
 		String filePath = "C:\\zzz\\excel\\" + uploadName;
 		OutputStream out = new FileOutputStream(filePath);
