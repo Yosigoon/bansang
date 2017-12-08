@@ -8,4 +8,6 @@ public interface RecommendService {
 
 	public List<RecommendDTO> getList(Long storeNumber);
 
+	public RecommendDTO getInfo(Long recommendNumber);
+
 }
