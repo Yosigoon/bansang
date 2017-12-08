@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.java.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +40,33 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public void register(RecommendDTO dto) {
-		
+
+		int count = 5;
 		RecommendDTO obj = storeMapper.exist(dto);
-		if(obj == null) { // Ã³À½ µî·ÏµÇ´Â °÷ÀÎ °æ¿ì 
-			Crolling crolling = new Crolling();
-			try {
-				crolling.crollingFiles(dto.getStoreName());
-			} catch (Exception e) {
-				e.printStackTrace();
+		if(obj == null) {
+			
+			Long storeNumber = storeMapper.register(dto);
+			System.out.println("==================");
+			System.out.println(storeNumber);
+			System.out.println("==================");
+			List<String> storeImageName = new ArrayList<String>();
+			for (int i = 0; i < count; i++) {
+				try {	
+					Crolling crolling = new Crolling((i+1), dto.getStoreName(), storeMapper, storeNumber);
+					crolling.start();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			storeMapper.register(dto);
+			
 			recommendMapper.firstRegister(dto);
 			
-		}else {  // ÀÌ¹Ì µî·ÏµÈ °¡°Ô¿¡ ´ëÇÑ ÃßÃµ
+		}else {  
 			dto.setStoreNumber(obj.getStoreNumber());
 			recommendMapper.plusRegister(dto);
 		}
-		if(dto.getImages().length !=0) { // ÀÌ¹ÌÁö ÆÄÀÏÀ» ¾÷·Îµå Çß´Ù¸é...
+		if(dto.getImages().length !=0) { // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ß´Ù¸ï¿½...
 			recommendMapper.fileUpload(dto.getImages());
 		}
 		
@@ -63,7 +74,6 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public RecommendDTO getInfo(Long storeNum) {
-		
 		return storeMapper.selectInfo(storeNum);
 	}
 

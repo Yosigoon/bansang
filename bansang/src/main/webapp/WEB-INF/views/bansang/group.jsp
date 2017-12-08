@@ -19,12 +19,10 @@ th, td {
 	padding-left : 0.5em;
 }
 
-.sw-top{
-	margin-top: 1em;
-}
 
 .sw-center{
 	display: inline;
+	padding-left : 4.5em;
 }
 
 </style>
@@ -92,7 +90,7 @@ th, td {
 									</div>
 									<div class="col-xs-4 text-right">
 										<btn id="exceldownBtn" class="btn btn-sm btn-success btn-icon">
-										<i class="ti-download"></i> Download</btn>
+										<i class="ti-download"></i> Download</btn></a>
 										<btn id="excelupBtn" class="btn btn-sm btn-success btn-icon">
 										<i class="ti-plus"></i> Register</btn>
 									</div>
@@ -211,6 +209,8 @@ th, td {
 	</div>
 </div>
 
+<form id='actionForm' method="get"></form>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -220,6 +220,9 @@ th, td {
 <script src="/resources/sweetalert2/dist/sweetalert2.min.js"></script>
 <script type="text/javascript" src="/resources/js/ip.js"></script>
 <script type="text/javascript">
+
+	var actionForm = $("#actionForm");
+
 	$("#groupList").on("click", ".moreBtn", function() {
 		$("#groupMember").hide('slow');
 		
@@ -249,18 +252,18 @@ th, td {
             }
         });
     });
+	$("#exceldownBtn").click(function(e){
+		var fileName = "group.xlsx";
+		actionForm.attr("action", IP+"bansang/download/" + fileName).submit();
+	});
 	$("#excelupBtn").click(function(e){
 		e.preventDefault();
 		swal({
 			  title: '<i>Group Register</i>',
 			  html:
-				  	"<br><input class='sw-top sw-center' type='file' name='excelFile' id='excelFile'/> "+
-				  	"<input id='excelSubmit' type='submit'/> "+
-				  	"<form id='groupRegisterBtn'>"+
-				  	"<hr>그룹이름 : <input type='text' id='groupName' name='groupName'>" +
-				  	"<br>그룹인원 : <input class='sw-top' type='text' id='groupMemberCount' name='groupMemberCount' readonly placeholder='Please Upload Excel..'>" +
-					"<br>그룹리더 : <input class='sw-top' type='text' id='groupLeader' name='groupLeader'>"+
-					"</form>",
+				  "<form id='fileForm'>"+
+				  "<br><input class='sw-center' type='file' name='excelFile' id='excelFile'/> "+
+				  "</form>",
 			  showCloseButton: true,
 			  showCancelButton: true,
 			  focusConfirm: false,
@@ -271,28 +274,34 @@ th, td {
 			  
 		}).then((result) => {
 			  if (result.value) {
+				  var formData = new FormData();  
+				  formData.append("file", $("#excelFile")[0].files[0]);
 				  
-						//actionForm.append("<input type='hidden' name='bno' value='${board.bno}'>");
-						//actionForm.attr("method", "post").attr("action","/board/remove").submit();
-					
-			        //swal({
-	            		//  position: 'center',
-	            		  //type: 'success',
-	            		  //title: 'Your work has been saved',
-	            		  //showConfirmButton: false,
-	            		  //timer: 1000
-	            		//})
-	            		
-	            		//action='"+IP+"group/register'
-	            		
-	            		
 				  
+				  $.ajax({
+					  url : IP + 'group/excelUpload',
+					  data : formData,
+					  dataType : 'text',
+					  processData : false, 
+					  contentType : false,
+					  type : 'POST',
+					  success : function(returnData) {
+						  swal({
+			              	position: 'center',
+			            	type: 'success',
+			            	title: 'Your work has been saved',
+			            	showConfirmButton: false,
+			            	timer: 1000
+			              })
+					  }
+				  });
 			  }
 			})
-		
-		
-		
 	})
+	
+
+	
+
 	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
