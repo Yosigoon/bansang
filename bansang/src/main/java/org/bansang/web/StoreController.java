@@ -28,6 +28,7 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 
+	@GetMapping("/list")
     public List<RecommendDTO> list(){
 		return storeService.list();
 	}

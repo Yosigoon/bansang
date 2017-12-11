@@ -45,9 +45,9 @@ public class Crolling extends Thread{
 
 	public void run(){
 		try {
-			System.setProperty("webdriver.chrome.driver", "C:\\zzz\\chromedriver\\chromedriver.exe"); //Å©·Òµå¶óÀÌ¹ö ½ÇÇà
+			System.setProperty("webdriver.chrome.driver", "C:\\zzz\\chromedriver\\chromedriver.exe"); //Å©ï¿½Òµï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("headless"); //Chrome Ã¢ ¾È¶ß°í Ä¸ÃÄ. 
+			options.addArguments("headless"); //Chrome Ã¢ ï¿½È¶ß°ï¿½ Ä¸ï¿½ï¿½. 
 		  
 			String url = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query="+storeName; 
 	
@@ -60,7 +60,7 @@ public class Crolling extends Thread{
 			BufferedImage img = ImageIO.read(image);
 			UUID uuid = UUID.randomUUID();
 	        String uploadName = uuid.toString();
-			String filePath = "C:\\zzz\\crolling\\"+uploadName+".png";
+			String filePath = "C:\\zzz\\crawling\\"+uploadName+".png";
 			ImageIO.write(img, "png", new File(filePath));
 			storeMapper.uploadStoreImage(uploadName, storeNumber);
 		

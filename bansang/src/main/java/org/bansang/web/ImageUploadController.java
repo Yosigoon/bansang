@@ -75,7 +75,7 @@ public class ImageUploadController {
 	@GetMapping("/showStoreImages/{uploadName:.+}")
     public @ResponseBody byte[] getImages(@PathVariable("uploadName") String uploadName) throws Exception {
 		log.info("" + uploadName); 
-        File file = new File("C:\\zzz\\crolling\\" + uploadName + ".png");
+        File file = new File("C:\\zzz\\crawling\\" + uploadName + ".png");
         return FileUtils.readFileToByteArray(file);
     }
 	
