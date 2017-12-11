@@ -66,8 +66,9 @@ public class StoreServiceImpl implements StoreService {
 			dto.setStoreNumber(obj.getStoreNumber());
 			recommendMapper.plusRegister(dto);
 		}
-		if(dto.getImages().length !=0) { // �̹��� ������ ���ε� �ߴٸ�...
+		if(dto.getImages().length !=0) { 
 			recommendMapper.fileUpload(dto.getImages());
+			recommendMapper.updateFirstImage();
 		}
 		
 	}
