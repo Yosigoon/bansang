@@ -4,11 +4,14 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.FileLockInterruptionException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
+import org.bansang.mapper.StoreMapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
@@ -30,10 +33,13 @@ public class Crolling extends Thread{
 	public static WebDriver driver;
 	int index;
 	String storeName;
-	
-	public Crolling(int index, String storeName) {
+	StoreMapper storeMapper;
+	Long storeNumber;
+	public Crolling(int index, String storeName, StoreMapper storeMapper, Long storeNumber) {
 		this.index = index;
 		this.storeName = storeName;
+		this.storeMapper = storeMapper;
+		this.storeNumber = storeNumber;
 	}
 
 
@@ -41,24 +47,25 @@ public class Crolling extends Thread{
 		try {
 			System.setProperty("webdriver.chrome.driver", "C:\\zzz\\chromedriver\\chromedriver.exe"); //크롬드라이버 실행
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("headless"); //Chrome 창 안뜨고 캡쳐.
-			
-	//		String url = "https://www.google.co.kr/search?q="+ storeName +"&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjV07L69e_XAhUHrJQKHbrkCSgQ_AUICigB&biw=1920&bih=949"; // 구글  
+			options.addArguments("headless"); //Chrome 창 안뜨고 캡쳐. 
+		  
 			String url = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query="+storeName; 
 	
 			driver = new ChromeDriver(options);
 			driver.get(url);
 			
-	//		String imgUrl = driver.findElement(By.cssSelector("#rg_s > div:nth-child(" + (i+1) + ") > a > img")).getAttribute("src"); // 구글
 			String imgUrl = driver.findElement(By.cssSelector("#_sau_imageTab > div.photowall._photoGridWrapper > div.photo_grid._box > div:nth-child(" + index + ") > a.thumb._thumb > img")).getAttribute("src");  
 	
 			URL	image = new URL(imgUrl);
 			BufferedImage img = ImageIO.read(image);
-			String filePath = "C:\\zzz\\crolling\\"+index+".png";
+			UUID uuid = UUID.randomUUID();
+	        String uploadName = uuid.toString();
+			String filePath = "C:\\zzz\\crolling\\"+uploadName+".png";
 			ImageIO.write(img, "png", new File(filePath));
+			storeMapper.uploadStoreImage(uploadName, storeNumber);
 		
 		} catch (Exception e) {
-			throw new RuntimeException("exception from thread");
+			e.printStackTrace();
 		}
 
 		
@@ -66,4 +73,5 @@ public class Crolling extends Thread{
 
 			
 	}
+
 }

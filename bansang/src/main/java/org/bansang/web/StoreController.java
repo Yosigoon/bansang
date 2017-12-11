@@ -5,12 +5,14 @@ import org.bansang.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -28,6 +30,7 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 
+	@GetMapping("/list")
     public List<RecommendDTO> list(){
 		return storeService.list();
 	}
@@ -35,14 +38,10 @@ public class StoreController {
 	@GetMapping("/view")
 	public RecommendDTO getView(Long storeNumber) {
 
-		log.info("================");
-		log.info("" + storeService.view(storeNumber));
-		log.info("================");
-
 		return storeService.view(storeNumber);
 	}
 
-
+	@PostMapping("/recommend")
 	public void addValue(@RequestBody RecommendDTO dto){
 		storeService.register(dto);
 	}
@@ -53,18 +52,16 @@ public class StoreController {
 		return storeService.getInfo(storeNum);
 	}
 
-	@GetMapping("/blog")
-	public String blogList() {
-
-		log.info("");
-
-		String clientId = "JU1ZHvkqIuJ2itqjbi6v";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "w55QlDJ26S";// 애플리케이션 클라이언트 시크릿값";
+	@GetMapping(value="/blog/{area}", produces="text/json;charset=UTF-8")
+	public String blogList(@PathVariable("area") String area) {
+		
+		String clientId = "JU1ZHvkqIuJ2itqjbi6v";
+		String clientSecret = "w55QlDJ26S";
 		
 		try {
-			String text = URLEncoder.encode("강남역 맛집", "UTF-8");
-			String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text; // json 결과
-			// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
+			String text = URLEncoder.encode(area + " 맛집", "UTF-8");
+			String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text; 
+			// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; 
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
@@ -72,21 +69,19 @@ public class StoreController {
 			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			if (responseCode == 200) { // 정상 호출
+			if (responseCode == 200) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // 에러 발생
+			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
-				
 			}
 			br.close();
 			log.info("" + response.toString());
-			
-		
+			log.info("" + response);
 			
 			return response.toString();
 

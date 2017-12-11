@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.java.Log;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/group/*")
 @Log
@@ -47,10 +47,8 @@ public class GroupController {
 
 	@PostMapping("/excelUpload")
 	public void uploadExcelFile(@RequestParam("file") MultipartFile file) throws Exception {
-
-		log.info("======= Group Upload =======");
 		
-		UUID uuid = UUID.randomUUID(); // ����ũ�� �̸�
+		UUID uuid = UUID.randomUUID();
 		String uploadName = uuid.toString() + "_" + file.getOriginalFilename();
 		String filePath = "C:\\zzz\\excel\\" + uploadName;
 		OutputStream out = new FileOutputStream(filePath);
@@ -59,10 +57,7 @@ public class GroupController {
 		ReadGroupExcel excel = new ReadGroupExcel();
 		GroupDTO dto = excel.readGroupFromExcelFile(filePath);
 
-
 		groupService.upload(dto);
 		
 	}
-	
-
 }
