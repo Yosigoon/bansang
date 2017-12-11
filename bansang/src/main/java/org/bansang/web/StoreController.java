@@ -28,7 +28,8 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 
-    public List<RecommendDTO> list(){
+	@GetMapping("/list")
+	public List<RecommendDTO> list() {
 		return storeService.list();
 	}
 
@@ -39,7 +40,8 @@ public class StoreController {
 	}
 
 	@PostMapping("/recommend")
-	public void addValue(@RequestBody RecommendDTO dto){
+	public void addValue(@RequestBody RecommendDTO dto) {
+		log.info("test............");
 		storeService.register(dto);
 	}
 
@@ -56,11 +58,11 @@ public class StoreController {
 
 		String clientId = "JU1ZHvkqIuJ2itqjbi6v";
 		String clientSecret = "w55QlDJ26S";
-		
+
 		try {
 			String text = URLEncoder.encode("媛뺣궓�뿭 留쏆쭛", "UTF-8");
-			String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text; 
-			// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; 
+			String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text;
+			// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text;
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
@@ -68,22 +70,20 @@ public class StoreController {
 			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			if (responseCode == 200) { // �젙�긽 �샇異�
+			if (responseCode == 200) { 
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // �뿉�윭 諛쒖깮
+			} else { 
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
-				
+
 			}
 			br.close();
 			log.info("" + response.toString());
-			
-		
-			
+
 			return response.toString();
 
 		} catch (Exception e) {
