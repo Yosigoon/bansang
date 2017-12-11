@@ -81,10 +81,12 @@ public class ImageUploadController {
 		return FileUtils.readFileToByteArray(file);
 	}
 
+	
+	
 	@GetMapping("/thumbImages/{imageName:.+}")
 	public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
 
-		File file = new File("C:\\zzz\\zupload\\" + imageName);
+		File file = new File("C:\\zzz\\crolling\\" + imageName + ".png");
 
 		return FileUtils.readFileToByteArray(file);
 	}
