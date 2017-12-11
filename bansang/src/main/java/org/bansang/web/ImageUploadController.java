@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.bansang.service.RecommendService;
+import org.bansang.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +34,9 @@ public class ImageUploadController {
 
 	@Autowired
 	private RecommendService recommendService;
+	
+	@Autowired
+	private StoreService storeService;
 	
 	@PostMapping("/register")
 	public @ResponseBody Map<String, String> uploadRecommendImagePost (@RequestParam("file") MultipartFile file) throws IOException {
@@ -61,5 +65,17 @@ public class ImageUploadController {
 	@GetMapping("/recommendImages/{recommendNumber}")
     public @ResponseBody List<String> list(@PathVariable("recommendNumber") Long recommendNumber){
 		return recommendService.getImageList(recommendNumber);
+    }
+	
+	@GetMapping("/storeImages/{storeNumber}")
+    public @ResponseBody List<String> storeImages(@PathVariable("storeNumber") Long storeNumber){
+		return storeService.getImageList(storeNumber);
+    }
+	
+	@GetMapping("/showStoreImages/{uploadName:.+}")
+    public @ResponseBody byte[] getImages(@PathVariable("uploadName") String uploadName) throws Exception {
+		log.info("" + uploadName); 
+        File file = new File("C:\\zzz\\crolling\\" + uploadName + ".png");
+        return FileUtils.readFileToByteArray(file);
     }
 }
