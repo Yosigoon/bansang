@@ -7,6 +7,13 @@
 
 <link rel="stylesheet" href="/resources/assets/css/store-management.css" />
 
+<style>
+#searchBtn {
+	background-color: #EB5E28;
+	border-color: #EB5E28
+}
+</style>
+
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white"
 		data-active-color="danger">
@@ -63,10 +70,25 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<div id="example1_filter" class="dataTables_filter">
-									<label>Search:<input type="search"
-										class="form-control input-sm" placeholder=""
-										aria-controls="example1"></label>
+									<select name="searchType">
+										<option value="n"
+											<c:out value="${cri.searchType == null?'selected':''}"/>>
+											Search Type</option>
+										<option value="s"
+											<c:out value="${cri.searchType eq 's'?'selected':''}"/>>
+											Store Name</option>
+										<option value="a"
+											<c:out value="${cri.searchType eq 'a'?'selected':''}"/>>
+											Area Keyword</option>
+									</select> <input type="text" class="form-control input-sm"
+										name="keyword" id="keywordInput" placeholder="search"
+										aria-controls="example1" value="${cri.keyword}"> <a
+										href="#" data-oper="list" class="btn btn-info btn-fill btn-wd"
+										id="searchBtn">Search</a>
 								</div>
+
+
+
 							</div>
 						</div>
 						<div class="row">
@@ -79,121 +101,42 @@
 											<th class="sorting_asc" tabindex="0" aria-controls="example1"
 												rowspan="1" colspan="1" aria-sort="ascending"
 												aria-label="Rendering engine: activate to sort column descending"
-												style="width: 297px;">Rendering engine</th>
+												style="width: 297px;">Area</th>
 											<th class="sorting" tabindex="0" aria-controls="example1"
 												rowspan="1" colspan="1"
 												aria-label="Browser: activate to sort column ascending"
-												style="width: 361px;">Browser</th>
+												style="width: 361px;">Store Name</th>
 											<th class="sorting" tabindex="0" aria-controls="example1"
 												rowspan="1" colspan="1"
 												aria-label="Platform(s): activate to sort column ascending"
-												style="width: 322px;">Platform(s)</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="Engine version: activate to sort column ascending"
-												style="width: 257px;">Engine version</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="CSS grade: activate to sort column ascending"
-												style="width: 190px;">CSS grade</th>
+												style="width: 322px;">Address</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr role="row" class="odd">
-											<td class="sorting_1">Gecko</td>
-											<td>Firefox 1.0</td>
-											<td>Win 98+ / OSX.2+</td>
-											<td>1.7</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="even">
-											<td class="sorting_1">Gecko</td>
-											<td>Firefox 1.5</td>
-											<td>Win 98+ / OSX.2+</td>
-											<td>1.8</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="odd">
-											<td class="sorting_1">Gecko</td>
-											<td>Firefox 2.0</td>
-											<td>Win 98+ / OSX.2+</td>
-											<td>1.8</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="even">
-											<td class="sorting_1">Gecko</td>
-											<td>Firefox 3.0</td>
-											<td>Win 2k+ / OSX.3+</td>
-											<td>1.9</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="odd">
-											<td class="sorting_1">Gecko</td>
-											<td>Camino 1.0</td>
-											<td>OSX.2+</td>
-											<td>1.8</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="even">
-											<td class="sorting_1">Gecko</td>
-											<td>Camino 1.5</td>
-											<td>OSX.3+</td>
-											<td>1.8</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="odd">
-											<td class="sorting_1">Gecko</td>
-											<td>Netscape 7.2</td>
-											<td>Win 95+ / Mac OS 8.6-9.2</td>
-											<td>1.7</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="even">
-											<td class="sorting_1">Gecko</td>
-											<td>Netscape Browser 8</td>
-											<td>Win 98SE+</td>
-											<td>1.7</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="odd">
-											<td class="sorting_1">Gecko</td>
-											<td>Netscape Navigator 9</td>
-											<td>Win 98+ / OSX.2+</td>
-											<td>1.8</td>
-											<td>A</td>
-										</tr>
-										<tr role="row" class="even">
-											<td class="sorting_1">Gecko</td>
-											<td>Mozilla 1.0</td>
-											<td>Win 95+ / OSX.1+</td>
-											<td>1</td>
-											<td>A</td>
-										</tr>
+										<c:forEach var="list" items="${list}">
+											<tr role="row" class="odd">
+												<td class="sorting_1">${list.areaKeyword}</td>
+												<td><a
+													href='/bansang/storeModify?storeNumber=${list.storeNumber}&page=${cri.page}&searchType=${cri.searchType}&keyword=${cri.keyword}'>${list.storeName}</a></td>
+												<td>${list.storeAddress }</td>
+											</tr>
+										</c:forEach>
 									</tbody>
-									<tfoot>
-										<tr>
-											<th rowspan="1" colspan="1">Rendering engine</th>
-											<th rowspan="1" colspan="1">Browser</th>
-											<th rowspan="1" colspan="1">Platform(s)</th>
-											<th rowspan="1" colspan="1">Engine version</th>
-											<th rowspan="1" colspan="1">CSS grade</th>
-										</tr>
-									</tfoot>
 								</table>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-5">
 								<div class="dataTables_info" id="example1_info" role="status"
-									aria-live="polite">Showing 1 to 10 of 57 entries</div>
+									aria-live="polite"><!-- Showing 1 to 10 of 57 entries --></div>
 							</div>
 							<div class="col-sm-7">
 								<div class="dataTables_paginate paging_simple_numbers"
 									id="example1_paginate">
 									<ul class="pagination">
-										<li class="paginate_button previous disabled"
-											id="example1_previous"><a href="#"
-											aria-controls="example1" data-dt-idx="0" tabindex="0">Prev</a></li>
+										<!-- <li class="paginate_button previous disabled"
+											id="example1_previous">
+											<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Prev</a></li>
 										<li class="paginate_button active"><a href="#"
 											aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li>
 										<li class="paginate_button "><a href="#"
@@ -208,36 +151,91 @@
 											aria-controls="example1" data-dt-idx="6" tabindex="0">6</a></li>
 										<li class="paginate_button next" id="example1_next"><a
 											href="#" aria-controls="example1" data-dt-idx="7"
-											tabindex="0">Next</a></li>
+											tabindex="0">Next<-/a></li> -->
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /.box-body -->
 			</div>
-
-
 		</div>
 	</div>
 </div>
+
+<form id='actionForm' method="get"></form>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 
 <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
 <!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/resources/assets/js/store-management.js"></script>
-
+<script src="/resources/js/pagination.js"></script>
 
 <script>
-	
+/* --------------pagination---------------- */
+ 
+			$(".pagination").on("click", "li", function(e){
+			    e.preventDefault();
+			    var pageNum = $(this).attr('data-page');
+			    var searchType = $("select[name='searchType']").val();
+			    var keyword = $("input[name='keyword']").val();
+			
+			    
+			    if($(this).attr('data-page') !== 'none'){
+			    	if(searchType !== null && searchType !== 'n' && keyword !== null){
+				    self.location="/bansang/storeManagement?page=" + pageNum + "&searchType=" + searchType + "&keyword=" + keyword;
+				    return;
+				    }
+			    	self.location="/bansang/storeManagement?page=" + pageNum;
+			    	}
+			    });
+			
+			var pageStr = makePage({
+			    total : ${cri.total},
+			    current : ${cri.page},
+			    pageSize : 10,
+			    liCount : 10
+			});
+			
+			$(".pagination").html(pageStr);
+
+/* ------------------------------ */
+
+			var msg = '${result}';
+			if (msg === 'regsuccess') {
+			    alert("작업 완료");
+			}else if(msg === 'delsuccess'){
+			    alert("삭제 완료");
+			}
+			
+	/* 검색처리 */
+         $("#searchBtn").on("click",function(e){
+            var actionForm = $("#actionForm");
+            var searchType = $("select[name='searchType']").val();
+            var keyword = $("input[name='keyword']").val();
+            
+            if(searchType === null || searchType === 'n'){
+                alert("검색 분류를 설정하세요!");
+                return;
+            }
+            if(keyword.length === 0){
+                alert("검색 키워드를 입력하세요!");
+                return;
+            }
+            var str = '';
+            str += "<input type='hidden' name='searchType' value='"+searchType+"'>";
+            str += "<input type='hidden' name='keyword' value='"+keyword+"'>";
+            actionForm.append(str);
+            actionForm.submit();
+        });
+
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 

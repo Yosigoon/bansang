@@ -77,4 +77,10 @@ public class StoreServiceImpl implements StoreService {
 		return storeMapper.selectInfo(storeNum);
 	}
 
+	@Override
+	public List<String> getImageList(Long storeNumber) {
+		
+		return storeMapper.getImageList(storeNumber);
+	}
+
 }
