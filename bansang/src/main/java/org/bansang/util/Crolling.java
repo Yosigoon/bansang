@@ -74,13 +74,14 @@ public class Crolling extends Thread {
 			File file = new File(filePath);
 			ImageIO.write(img, "png", new File(filePath));
 
+			///////////////////////////
 			BufferedImage origin = ImageIO.read(((MultipartFile) file).getInputStream());
 			int imgwidth = Math.min(origin.getHeight(), origin.getWidth());
 			int imgheight = imgwidth;
 			
 			BufferedImage scaledImage = Scalr.crop(origin, (origin.getWidth() - imgwidth)/2, (origin.getHeight() - imgheight)/2, imgwidth, imgheight);
 
-			BufferedImage destImg = Scalr.resize(scaledImage, 400, 400);
+			BufferedImage destImg = Scalr.resize(scaledImage, 200, 200);
 
 			String thumbnailName = "s_" + uploadName;
 			
