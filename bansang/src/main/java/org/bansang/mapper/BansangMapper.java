@@ -12,7 +12,6 @@ public interface BansangMapper {
 	
 //	@Select("select * from tbl_store order by store_number desc limit #{skip}, 10")
 //	public List<RecommendDTO> listPage(Criteria cri);
-	
 	public List<RecommendDTO> listPage(SearchCriteria cri);
 
 	@Select("select * from tbl_store where store_number = #{storeNumber}")
@@ -20,7 +19,6 @@ public interface BansangMapper {
 
 /*	@Select("select count(store_number) from tbl_store where store_number > 0")
 	public int getTotal(Criteria cri);*/
-	
 	public int getTotal(SearchCriteria cri);
 
 	@Delete("delete from tbl_store where store_number = #{storeNumber}")
