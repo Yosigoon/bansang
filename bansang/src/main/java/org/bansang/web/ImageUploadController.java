@@ -50,6 +50,45 @@ public class ImageUploadController {
 		UUID uuid = UUID.randomUUID();
 		String uploadName = uuid.toString() + "_" + original;
 
+		System.out.println(uploadName);
+		
+		String filePath = "C:\\zzz\\zupload\\" + uploadName;
+		OutputStream out = new FileOutputStream(filePath);
+		FileCopyUtils.copy(file.getInputStream(), out);
+		
+		// crop image---------------------
+		BufferedImage origin = ImageIO.read(file.getInputStream());
+
+		int height = origin.getHeight();
+		int width = origin.getWidth();
+		
+		int imgsize = height >= width ? width : height;
+		
+		BufferedImage croppedImage = Scalr.crop(origin, (width-imgsize)/2, (height-imgsize)/2+50, imgsize, imgsize*3/4);
+
+		BufferedImage resizedImage = Scalr.resize(croppedImage, 600, 450);
+		
+		String thumbnailName = "s_" + uploadName;
+		
+		ImageIO.write(resizedImage, "jpg", new File("C:\\zzz\\zupload\\" + thumbnailName + ".jpg"));
+		// -------------------------------	
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("original", file.getOriginalFilename());
+		map.put("uploadName", uploadName);
+		return map;
+	}
+	
+	@PostMapping("/profile")
+	public @ResponseBody Map<String, String> uploadProfileImagePost(@RequestParam("file") MultipartFile file)
+			throws IOException {
+
+		String original = file.getOriginalFilename();
+		UUID uuid = UUID.randomUUID();
+		String uploadName = uuid.toString() + "_" + original;
+
+		System.out.println(uploadName);
+		
 		String filePath = "C:\\zzz\\zupload\\" + uploadName;
 		OutputStream out = new FileOutputStream(filePath);
 		FileCopyUtils.copy(file.getInputStream(), out);
