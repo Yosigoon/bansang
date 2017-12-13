@@ -91,4 +91,12 @@ public class ImageUploadController {
 
 		return FileUtils.readFileToByteArray(file);
 	}
+	
+	@GetMapping("/profileImage/{imageName:.+}")
+	public @ResponseBody byte[] profile(@PathVariable("imageName") String imageName) throws Exception {
+
+		File file = new File("C:\\zzz\\profile\\" + imageName);
+
+		return FileUtils.readFileToByteArray(file);
+	}
 }

@@ -9,5 +9,5 @@ public class GroupMemberDTO {
 	private String memberName; 
 	private String memberId; 
 	private String membership;
-
+	private String imageName;
 }
