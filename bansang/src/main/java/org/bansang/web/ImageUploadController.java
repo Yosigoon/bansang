@@ -54,12 +54,22 @@ public class ImageUploadController {
 		OutputStream out = new FileOutputStream(filePath);
 		FileCopyUtils.copy(file.getInputStream(), out);
 		
+		// crop image---------------------
 		BufferedImage origin = ImageIO.read(file.getInputStream());
+
+		int height = origin.getHeight();
+		int width = origin.getWidth();
 		
-		int imgwidth = Math.min(origin.getHeight(), origin.getWidth());
-		int imgheight = imgwidth;
+		int imgsize = height >= width ? width : height;
 		
-		BufferedImage scaledImage = Scalr.crop(origin, (origin.getWidth() - imgwidth)/2, (origin.getHeight() - imgheight)/2, imgwidth, imgheight*3/4);
+		BufferedImage croppedImage = Scalr.crop(origin, (width-imgsize)/2, (height-imgsize)/2+50, imgsize, imgsize*3/4);
+
+		BufferedImage resizedImage = Scalr.resize(croppedImage, 600, 450);
+		
+		String thumbnailName = "s_" + uploadName;
+		
+		ImageIO.write(resizedImage, "jpg", new File("C:\\zzz\\zupload\\" + thumbnailName + ".jpg"));
+		// -------------------------------	
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("original", file.getOriginalFilename());
@@ -88,6 +98,14 @@ public class ImageUploadController {
 	public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
 
 		File file = new File("C:\\zzz\\crawling\\" + imageName + ".png");
+
+		return FileUtils.readFileToByteArray(file);
+	}
+	
+	@GetMapping("/recommendThumb/{imageName:.+}")
+	public @ResponseBody byte[] recommendThumb(@PathVariable("imageName") String imageName) throws Exception {
+
+		File file = new File("C:\\zzz\\zupload\\" + imageName + ".jpg");
 
 		return FileUtils.readFileToByteArray(file);
 	}
