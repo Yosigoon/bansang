@@ -77,7 +77,7 @@ public class Crawling extends Thread {
 
 			ImageIO.write(img, "png", new File(filePath));
 			
-			// read file
+			// crop image---------------------
 			File file = new File("C:\\zzz\\crawling\\"+ uploadName + ".png");
 
 			byte[] imageInByte = FileUtils.readFileToByteArray(file);
@@ -99,6 +99,7 @@ public class Crawling extends Thread {
 			String thumbnailName = "s_" + uploadName;
 			
 			ImageIO.write(resizedImage, "png", new File("C:\\zzz\\crawling\\" + thumbnailName + ".png"));
+			// -------------------------------	
 			
 			storeMapper.uploadStoreImage(uploadName, storeNumber);
 
