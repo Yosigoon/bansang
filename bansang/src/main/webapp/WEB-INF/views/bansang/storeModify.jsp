@@ -39,7 +39,7 @@ swiper-slide {
 .gallery-thumbs .swiper-slide {
 	width: 65%;
 	height: 100%;
-	opacity: 0.4;
+ 	opacity: 0.4; 
 }
 
 .gallery-thumbs .swiper-slide-active {
@@ -108,6 +108,8 @@ swiper-slide {
 	border-color: #EB5E28;
 }
 </style>
+
+<button id='testBtn' >테스트</button>
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white"
 		data-active-color="danger">
@@ -192,7 +194,7 @@ swiper-slide {
 															class="btn btn-sm btn-info btn-icon pull-right"> <i
 															class="ti-plus"></i> Add
 														</a>
-
+														
 														<div class="swiper-container">
 															<div class="swiper-container gallery-thumbs">
 																<div class="swiper-wrapper" style="width: 50%"></div>
@@ -288,13 +290,13 @@ swiper-slide {
             for(var i = 0; i < arr.length; i++){
             	
 				/* var str = "<img class='swiper-slide' src='"+ IP + "upload/thumbImages/" + arr[i] +"'>"; */
-				var top = "<div class='swiper-slide'><img class='swiper-slide' src='"
+				var top = "<div class='swiper-slide'><img class='swiper-slide' id='top' src='"
 				+ IP + "upload/thumbImages/" 
 				+ arr[i] +"'></div>";
 				
 				var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
 				+ IP + "upload/thumbImages/" +arr[i] 
-				+"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
+				+"'><img data-ino='"+ i +"' id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
 				
 				galleryTop.appendSlide(top);
 				galleryThumbs.appendSlide(thumbs);
@@ -350,36 +352,52 @@ swiper-slide {
 							console.log(data);
 							var obj = JSON.parse(data);
 							console.log(obj.uploadName);
-							var top = "<div class='swiper-slide'><img class='swiper-slide' src='"
+							var top = "<div class='swiper-slide'><img class='swiper-slide' id='top' src='"
 							+ IP + "upload/show/" + obj.uploadName +"'></div>";
 							
 							var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
 							+ IP + "upload/show/" + obj.uploadName +"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
 							
-							/* console.log(${info.imageName}); */
+							
 							
 							galleryTop.appendSlide(top);
 							galleryThumbs.appendSlide(thumbs);
 							/* $(".swiper-wrapper img").addClass("swiper-slide"); */
+							
+							
 					  }
 			  
 				  }); 
 			  }
 			});
 	});
-		   
+	
 	/*--------------------------image delete---------------------------  */
 	
-	    $('.gallery-thumbs').on('click','.canBtn' ,function () {
+	$('.gallery-thumbs').on('click','.canBtn' ,function () {
         
-        console.log("clicked");
-        
-    	console.log($(this).parent());
-    	
-       	console.log("====================");
- 
-    
-	 	$(this).parent().removeClass('swiper-slide swiper-slide-active');   
+	  	/* $(this).parent().removeClass('swiper-slide swiper-slide-active');  */
+	 
+/*  		$(this).parent().remove(); 
+	 	$('#top').parent().remove();  */
+	 	
+	 	
+	 	var deleteIno = $(this).attr("data-ino"); 
+	 	
+	 	var idx;
+	 	$(".canBtn").each(function(index){
+	 		
+	 		idx = $(this).attr("data-ino");
+	 		
+	 		if(idx == deleteIno){
+	 	    	galleryThumbs.removeSlide(index);
+	 			galleryTop.removeSlide(index);
+	 			return false;
+	 		}
+	 		
+	 	});
+	 	
+	 	 
         
     });
 	
@@ -405,7 +423,7 @@ swiper-slide {
 		actionForm.attr("action", "/bansang/storeManagement").submit();
 	});
 	
-//ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇ
+
 	 
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>

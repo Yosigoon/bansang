@@ -26,7 +26,7 @@ public interface BansangMapper {
 	@Delete("delete from tbl_store where store_number = #{storeNumber}")
 	public void delete(RecommendDTO dto);
 	
-	@Insert("insert into table_store_image (image_name, store_number) values (#{imageName}, LAST_INSERT_ID())")
-	public void storeModifyFileUpload(String imageName);
+/*	@Insert("insert into table_store_image (image_name, store_number) values (#{imageName}, LAST_INSERT_ID())")
+	public void storeModifyFileUpload(String imageName);*/
 	
 }
