@@ -6,6 +6,8 @@
 <%@include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet"
 	href="/resources/sweetalert2/dist/sweetalert2.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="/resources/css/swiper.css">
@@ -29,28 +31,81 @@ swiper-slide {
 }
 
 .gallery-thumbs {
-	height: 20%;
+	height: 80%;
 	box-sizing: border-box;
 	padding: 10px 0;
 }
 
 .gallery-thumbs .swiper-slide {
-	width: 25%;
+	width: 65%;
 	height: 100%;
 	opacity: 0.4;
 }
 
 .gallery-thumbs .swiper-slide-active {
 	opacity: 1;
+	width: 65%;
 }
 
 .gallery-thumbs {
 	height: 100%
 }
 
+.material-icons {
+	font-size: 22px;
+	color: white
+}
+
+.swal2-popup .swal2-close {
+	display: none;
+	color: #fff;
+}
+
 #button {
+	background-color: #ffffff;
+	border-color: #EB5E28;
+	color: #EB5E28;
+}
+
+#cancelBtn {
+	width: 15%;
+	height: auto;
+	z-index: 1000;
+	margin-left: -17%;
+	margin-top: -23%;
+}
+
+/* +Add Style*/
+.navbar .navbar-nav>li>a.btn-info, .btn-info {
+	border-color: #EB5E28;
+	color: #EB5E28;
+}
+
+.btn-info.active.focus, .btn-info.active:focus, .btn-info.active:hover,
+	.btn-info:active.focus, .btn-info:active:focus, .btn-info:active:hover,
+	.open>.dropdown-toggle.btn-info.focus, .open>.dropdown-toggle.btn-info:focus,
+	.open>.dropdown-toggle.btn-info:hover {
+	color: #fff;
 	background-color: #EB5E28;
-	border-color: #EB5E28
+	border-color: #EB5E29;
+}
+
+.navbar .navbar-nav>li>a.btn-info:hover, .navbar .navbar-nav>li>a.btn-info:focus,
+	.navbar .navbar-nav>li>a.btn-info:active, .navbar .navbar-nav>li>a.btn-info.active,
+	.open>.navbar .navbar-nav>li>a.btn-info.dropdown-toggle, .btn-info:hover,
+	.btn-info:focus, .btn-info:active, .btn-info.active, .open>.btn-info.dropdown-toggle
+	{
+	border-color: #EB5E28;
+}
+
+.navbar .navbar-nav>li>a.btn-info:hover, .navbar .navbar-nav>li>a.btn-info:focus,
+	.navbar .navbar-nav>li>a.btn-info:active, .navbar .navbar-nav>li>a.btn-info.active,
+	.open>.navbar .navbar-nav>li>a.btn-info.dropdown-toggle, .btn-info:hover,
+	.btn-info:focus, .btn-info:active, .btn-info.active, .open>.btn-info.dropdown-toggle
+	{
+	background-color: #EB5E28;
+	color: rgba(255, 255, 255, 0.7);
+	border-color: #EB5E28;
 }
 </style>
 <div class="wrapper">
@@ -107,10 +162,9 @@ swiper-slide {
 								<form id="modForm" method="post">
 									<div class="row">
 										<div class="col-md-6">
-
 											<div class="swiper-container">
 												<div class="swiper-container gallery-top">
-													<div class="swiper-wrapper"></div>
+													<div class="swiper-wrapper" style="width: 100%;"></div>
 												</div>
 											</div>
 
@@ -120,12 +174,12 @@ swiper-slide {
 											<div id="position">
 												<div class="form-group" style="margin-top: 5em;">
 													<label>StoreName</label> <input type="text"
-														class="form-control border-input"
+														class="form-control border-input" readonly="readonly"
 														value="${info.storeName}">
 												</div>
 												<div class="form-group">
 													<label>Store Address</label> <input type="text"
-														class="form-control border-input"
+														class="form-control border-input" readonly="readonly"
 														value="${info.storeAddress}">
 												</div>
 											</div>
@@ -134,15 +188,23 @@ swiper-slide {
 												<div class="col-md-12">
 													<div class="form-group">
 														<!-- <label>Image</label> -->
+														<a href="#" id="addBtn"
+															class="btn btn-sm btn-info btn-icon pull-right"> <i
+															class="ti-plus"></i> Add
+														</a>
 
 														<div class="swiper-container">
 															<div class="swiper-container gallery-thumbs">
 																<div class="swiper-wrapper" style="width: 50%"></div>
+
 																<!-- Add Arrows -->
-																<div class="swiper-button-next swiper-button-red"></div>
-																<div class="swiper-button-prev swiper-button-red"></div>
+																<div class="swiper-button-next swiper-button-black"></div>
+																<div class="swiper-button-prev swiper-button-black"></div>
+																<!-- <div class="swiper-button-prev swiper-button-red"></div> -->
 															</div>
 														</div>
+
+
 													</div>
 												</div>
 											</div>
@@ -150,10 +212,9 @@ swiper-slide {
 									</div>
 
 									<!-- thumb 있었던 자리  -->
-
 									<div class="row">
 										<div class="form-group">
-											<div class="text-right" style="margin-right: 2em; ">
+											<div class="text-right" style="margin-right: 2em;">
 
 												<input type='hidden' name='storeNumber'
 													value='${info.storeNumber}'> <input type='hidden'
@@ -195,26 +256,135 @@ swiper-slide {
 <!--  -->
 <script src="/resources/js/swiper.js"></script>
 <script>
-	/*--------------------------swiper 이벤트처리---------------------------*/
+
+	/*--------------------------swiper event---------------------------*/
 	
 	var galleryTop = new Swiper('.gallery-top', {
-		spaceBetween : 10,
-		navigation : {
-			nextEl : '.swiper-button-next',
-			prevEl : '.swiper-button-prev',
-		},
-	});
+	              		spaceBetween : 10,
+	              		navigation : {
+	              			nextEl : '.swiper-button-next',
+	              			prevEl : '.swiper-button-prev',
+	              		},
+	              	});
 	var galleryThumbs = new Swiper('.gallery-thumbs', {
-		spaceBetween : 10,
-		centeredSlides : true,
-		slidesPerView : 'auto',
-		touchRatio : 0.2,
-		slideToClickedSlide : true,
-	});
+	              		spaceBetween : 10,
+	              		centeredSlides : true,
+	              		slidesPerView : 'auto',
+	              		touchRatio : 0.2,
+	              		slideToClickedSlide : true,
+	              	});
+	              
 	galleryTop.controller.control = galleryThumbs;
 	galleryThumbs.controller.control = galleryTop;
+	
+	/* --------------------crawling image-------------------- */	
 
-	/*--------------------------버튼이벤트처리---------------------------*/
+	function getStoreImages() {
+		
+		var storeNumber =  ${info.storeNumber}
+	
+        $.getJSON(IP + 'upload/storeImages/'+ storeNumber , function (arr) {    	
+        	
+            for(var i = 0; i < arr.length; i++){
+            	
+				/* var str = "<img class='swiper-slide' src='"+ IP + "upload/thumbImages/" + arr[i] +"'>"; */
+				var top = "<div class='swiper-slide'><img class='swiper-slide' src='"
+				+ IP + "upload/thumbImages/" 
+				+ arr[i] +"'></div>";
+				
+				var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
+				+ IP + "upload/thumbImages/" +arr[i] 
+				+"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
+				
+				galleryTop.appendSlide(top);
+				galleryThumbs.appendSlide(thumbs);
+				
+				
+				/*  $(".swiper-wrapper img").addClass("swiper-slide");  */
+            };
+           
+            
+        });
+        
+    }
+	getStoreImages();
+	
+
+	/*-------------------------image upload--------------------------- */
+	
+	$("#addBtn").click(function(e){
+		e.preventDefault();
+		swal({
+			  title: '<i>Add image</i>',
+			  html:
+				  "<form id='fileForm'>"+
+				  "<br><input class='sw-center' type='file' name='addFile' id='addFile'/> "+
+				  "</form>",
+			  showCloseButton: true,
+			  showCancelButton: true,
+			  focusConfirm: false,
+			  confirmButtonText: 'Add',
+			  cancelButtonText: 'Cancel',
+			  
+		}).then((result) => {
+			  if (result.value) {
+				  var formData = new FormData();  
+				  formData.append("file", $("#addFile")[0].files[0]);
+				  
+				  
+			  $.ajax({
+					  url : IP + 'upload/register',
+					  data : formData,
+					  dataType : 'text',
+					  processData : false, 
+					  contentType : false,
+					  type : 'POST',
+					  success : function(data) {
+						  swal({
+			              	position: 'center',
+			            	type: 'success',
+			            	title: 'Your work has been saved',
+			            	showConfirmButton: false,
+			            	timer: 1000
+			              });
+							console.log(data);
+							var obj = JSON.parse(data);
+							console.log(obj.uploadName);
+							var top = "<div class='swiper-slide'><img class='swiper-slide' src='"
+							+ IP + "upload/show/" + obj.uploadName +"'></div>";
+							
+							var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
+							+ IP + "upload/show/" + obj.uploadName +"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
+							
+							/* console.log(${info.imageName}); */
+							
+							galleryTop.appendSlide(top);
+							galleryThumbs.appendSlide(thumbs);
+							/* $(".swiper-wrapper img").addClass("swiper-slide"); */
+					  }
+			  
+				  }); 
+			  }
+			});
+	});
+		   
+	/*--------------------------image delete---------------------------  */
+	
+	    $('.gallery-thumbs').on('click','.canBtn' ,function () {
+        
+        console.log("clicked");
+        
+    	console.log($(this).parent());
+    	
+       	console.log("====================");
+ 
+    
+	 	$(this).parent().removeClass('swiper-slide swiper-slide-active');   
+        
+    });
+	
+
+	/*--------------------------buttno(delete, update, cancel)---------------------------*/
 
 	var actionForm = $("#actionForm");
 	$(".btn").click(function(e) {
@@ -235,19 +405,7 @@ swiper-slide {
 		actionForm.attr("action", "/bansang/storeManagement").submit();
 	});
 	
-	/* storeImages */
-	
-	function getStoreImages() {
-		
-        $.getJSON(IP + 'upload/storeImages/' + ${info.storeNumber}, function (arr) { // DB에 저장된 이미지 이름 배열을 들고옴
-            for(var i = 0; i < arr.length; i++){
-				var str = "<img class='swiper-slide' src='"+ IP + "upload/showStoreImages/" + arr[i] +"'>";
-				galleryThumbs.appendSlide(str);
-				galleryTop.appendSlide(str);
-		
-            };
-        });
-    }
-	getStoreImages();
+//ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇ
+	 
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>

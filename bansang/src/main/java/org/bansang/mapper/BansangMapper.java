@@ -3,6 +3,7 @@ package org.bansang.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.bansang.dto.Criteria;
 import org.bansang.dto.RecommendDTO;
@@ -23,5 +24,8 @@ public interface BansangMapper {
 
 	@Delete("delete from tbl_store where store_number = #{storeNumber}")
 	public void delete(RecommendDTO dto);
+	
+	@Insert("insert into table_store_image (image_name, store_number) values (#{imageName}, LAST_INSERT_ID())")
+    public void storeModifyFileUpload(String imageName);
 	
 }
