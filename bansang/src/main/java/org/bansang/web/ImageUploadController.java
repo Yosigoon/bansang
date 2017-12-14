@@ -61,8 +61,10 @@ public class ImageUploadController {
 		String filePath = "C:\\zzz\\zupload\\" + uploadName;
 		OutputStream out = new FileOutputStream(filePath);
 		FileCopyUtils.copy(file.getInputStream(), out);
-
-
+		
+		
+		// crop image---------------------
+        BufferedImage origin = ImageIO.read(file.getInputStream());
 
 		int height = origin.getHeight();
 		int width = origin.getWidth();
