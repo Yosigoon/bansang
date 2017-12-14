@@ -6,7 +6,7 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 import org.bansang.dto.RecommendDTO;
 import org.bansang.mapper.RecommendMapper;
 import org.bansang.mapper.StoreMapper;
-import org.bansang.util.Crolling;
+import org.bansang.util.Crawling;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.java.Log;
@@ -41,19 +41,19 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public void register(RecommendDTO dto) {
 
-		int count = 5;
+		int count = 10;
 		RecommendDTO obj = storeMapper.exist(dto);
 		if(obj == null) {
 			
 			Long storeNumber = storeMapper.register(dto);
-			System.out.println("==================");
-			System.out.println(storeNumber);
-			System.out.println("==================");
+//			System.out.println("==================");
+//			System.out.println(storeNumber);
+//			System.out.println("==================");
 			List<String> storeImageName = new ArrayList<String>();
 			for (int i = 0; i < count; i++) {
 				try {	
-					Crolling crolling = new Crolling((i+1), dto.getStoreName(), storeMapper, storeNumber);
-					crolling.start();
+					Crawling crawling = new Crawling((i+1), dto.getStoreName(), storeMapper, storeNumber);
+					crawling.start();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,7 +70,6 @@ public class StoreServiceImpl implements StoreService {
 			recommendMapper.fileUpload(dto.getImages());
 			recommendMapper.updateFirstImage();
 		}
-		
 	}
 
 	@Override
