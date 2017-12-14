@@ -141,7 +141,7 @@ public class ImageUploadController {
 		return FileUtils.readFileToByteArray(file);
 	}
 	
-<<<<<<< HEAD
+
 	@GetMapping("/showStoreImages/{uploadName:.+}")
     public @ResponseBody byte[] getImages(@PathVariable("uploadName") String uploadName) throws Exception {
 		log.info("" + uploadName); 
@@ -150,7 +150,7 @@ public class ImageUploadController {
     }
 	
 	
-=======
+
 	@GetMapping("/recommendThumb/{imageName:.+}")
 	public @ResponseBody byte[] recommendThumb(@PathVariable("imageName") String imageName) throws Exception {
 
@@ -158,5 +158,5 @@ public class ImageUploadController {
 
 		return FileUtils.readFileToByteArray(file);
 	}
->>>>>>> branch 'master' of https://github.com/octorbirth/bansang.git
+
 }
