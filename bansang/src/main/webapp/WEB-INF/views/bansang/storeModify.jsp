@@ -405,7 +405,7 @@ swiper-slide {
 		actionForm.attr("action", "/bansang/storeManagement").submit();
 	});
 	
-
+//ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇ
 	 
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
