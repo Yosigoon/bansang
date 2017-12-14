@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.java.Log;
 
-@CrossOrigin
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/group/*")
 @Log

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.java.Log;
 
 @Log
-@CrossOrigin
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/review/*")
 public class CommentController {

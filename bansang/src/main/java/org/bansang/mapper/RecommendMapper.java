@@ -35,5 +35,7 @@ public interface RecommendMapper {
 	@Select("select * from tbl_recommend where recommend_number = #{recommendNumber}")
 	public RecommendDTO selectInfo(Long recommendNumber);
 
+	public void updateFirstImage();
+
 	
 }

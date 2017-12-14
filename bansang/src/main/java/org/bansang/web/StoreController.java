@@ -21,19 +21,19 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/store/*")
 @Log
 public class StoreController {
 
-    @Autowired
-    private StoreService storeService;
+	@Autowired
+	private StoreService storeService;
 
-    @GetMapping("/list")
-   public List<RecommendDTO> list(){
-        return storeService.list();
-    }
+	@GetMapping("/list")
+    public List<RecommendDTO> list(){
+		return storeService.list();
+	}
 
     @GetMapping("/view")
     public RecommendDTO getView(Long storeNumber) {
@@ -48,8 +48,14 @@ public class StoreController {
 
     @GetMapping("/{storeNum}")
     public RecommendDTO getRecommendList(@RequestParam("storeNum") Long storeNum) {
-
+    	
         return storeService.getInfo(storeNum);
+    }
+    
+    @GetMapping("/images/{storeNum}")
+    public List<String> getCrawlingImgList(@PathVariable("storeNum") Long storeNum) {
+    
+    	return storeService.getImageList(storeNum);
     }
 
     @GetMapping(value="/blog/{area}", produces="text/json;charset=UTF-8")
