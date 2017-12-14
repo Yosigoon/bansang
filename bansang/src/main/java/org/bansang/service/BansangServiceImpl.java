@@ -40,6 +40,12 @@ public class BansangServiceImpl implements BansangService {
 
 
 /*	@Override
+	public void sotoreModifyFileUpload(String imageNmae) {
+		bansangMapper.storeModifyFileUpload(imageNmae);
+		return;
+	}*/
+
+/*	@Override
 	public void modify(RecommendDTO dto) {
 		bansangMapper.modify(dto);
 		return;

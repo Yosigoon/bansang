@@ -8,9 +8,10 @@
 <link rel="stylesheet" href="/resources/assets/css/store-management.css" />
 
 <style>
-#searchBtn {
-	background-color: #EB5E28;
-	border-color: #EB5E28
+#searchBtn, #listBtn {
+	background-color: #ffffff;
+	border-color: #EB5E28;
+	color: #EB5E28;
 }
 </style>
 
@@ -82,9 +83,11 @@
 											Area Keyword</option>
 									</select> <input type="text" class="form-control input-sm"
 										name="keyword" id="keywordInput" placeholder="search"
-										aria-controls="example1" value="${cri.keyword}"> <a
-										href="#" data-oper="list" class="btn btn-info btn-fill btn-wd"
+										aria-controls="example1" value="${cri.keyword}"> 
+										<a href="#" data-oper="serach" class="btn btn-info btn-fill btn-wd"
 										id="searchBtn">Search</a>
+										<a href="#" data-oper="list" class="btn btn-info btn-fill btn-wd"
+										id="listBtn">New</a>
 								</div>
 
 
@@ -236,6 +239,10 @@
             actionForm.submit();
         });
 
+         $("#listBtn").on("click",function(e){
+        	 self.location="/bansang/storeManagement";
+         });
+	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 

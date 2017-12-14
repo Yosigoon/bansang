@@ -13,4 +13,5 @@ public class MemberDTO {
 	String memberImage;
 	String memberToken;
 	Date registerDate;
+	String[] areas;
 }
