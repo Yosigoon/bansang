@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins="*", allowedHeaders="*")
-@RequestMapping("/join/*")
+@RequestMapping("/member/*")
 @RestController
 public class MemberController {
 
@@ -26,6 +26,5 @@ public class MemberController {
 	@PostMapping("/image")
 	public void uploadImage(@RequestBody MemberDTO dto) {
 		
-		memberService.registerImage(dto);
 	}
 }
