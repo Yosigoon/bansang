@@ -356,7 +356,7 @@ swiper-slide {
 							var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
 							+ IP + "upload/show/" + obj.uploadName +"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
 							
-							console.log(${info.imageName})
+							/* console.log(${info.imageName}); */
 							
 							galleryTop.appendSlide(top);
 							galleryThumbs.appendSlide(thumbs);
