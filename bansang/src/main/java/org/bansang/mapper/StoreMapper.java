@@ -25,7 +25,7 @@ public interface StoreMapper {
 	@Select("select * from tbl_store where store_number = #{storeNumber}")
     public RecommendDTO selectInfo(Long storeNumber);
 
-	@Insert("insert into tbl_store_image (image_name, store_number) values (#{uploadName}, #{storeNumber})")
+	@Insert("call store_image_register(#{uploadName},#{storeNumber})")
 	public void uploadStoreImage(@Param("uploadName") String uploadName, @Param("storeNumber") Long storeNumber);
 
 	@Select("select image_name imageName from tbl_store_image where store_number = #{storeNumber}")

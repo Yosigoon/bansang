@@ -34,7 +34,7 @@ public class GroupController {
 
 	@GetMapping("/groupList")
 	public @ResponseBody List<GroupDTO> groupList() {
-		log.info("Group List: " + groupService.groupList());
+		log.info("===============Group List: " + groupService.groupList());
 		return groupService.groupList();
 	}
 	
@@ -57,10 +57,7 @@ public class GroupController {
 		ReadGroupExcel excel = new ReadGroupExcel();
 		GroupDTO dto = excel.readGroupFromExcelFile(filePath);
 
-
 		groupService.upload(dto);
 		
 	}
-	
-
 }
