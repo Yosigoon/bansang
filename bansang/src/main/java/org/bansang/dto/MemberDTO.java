@@ -8,7 +8,7 @@ import lombok.Data;
 public class MemberDTO {
 
 	String memberId;
-	String memberPw;
+	String memberPassword;
 	String memberName;
 	String memberImage;
 	String memberToken;
