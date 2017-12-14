@@ -98,7 +98,7 @@ swiper-slide {
 		<div class="content">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-md-8">
 						<div class="card">
 							<div class="header">
 								<h4 class="title">Store Modify</h4>
@@ -106,67 +106,67 @@ swiper-slide {
 							<div class="content">
 								<form id="modForm" method="post">
 									<div class="row">
-										<div class="col-md-5">
+										<div class="col-md-6">
+
 											<div class="swiper-container">
 												<div class="swiper-container gallery-top">
-													<div class="swiper-wrapper">
-													</div>
+													<div class="swiper-wrapper"></div>
 												</div>
 											</div>
+
 										</div>
 
-										<div class="col-md-5">
-											<div id="position" style="margin-top: 12em;">
-												<div class="form-group" style="vertical-align: middle;">
+										<div class="col-md-6">
+											<div id="position">
+												<div class="form-group" style="margin-top: 5em;">
 													<label>StoreName</label> <input type="text"
 														class="form-control border-input"
 														value="${info.storeName}">
 												</div>
-												<div class="form-group" style="vertical-align: middle;">
+												<div class="form-group">
 													<label>Store Address</label> <input type="text"
 														class="form-control border-input"
 														value="${info.storeAddress}">
 												</div>
 											</div>
-										</div>
-									</div>
+											<!--넣어보자 -->
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<!-- <label>Image</label> -->
 
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<!-- <label>Image</label> -->
-												<div class="swiper-container">
-													<div class="swiper-container gallery-thumbs">
-														<div class="swiper-wrapper" style="width: 50%">
-															
-															
+														<div class="swiper-container">
+															<div class="swiper-container gallery-thumbs">
+																<div class="swiper-wrapper" style="width: 50%"></div>
+																<!-- Add Arrows -->
+																<div class="swiper-button-next swiper-button-red"></div>
+																<div class="swiper-button-prev swiper-button-red"></div>
+															</div>
 														</div>
-														<!-- Add Arrows -->
-														<div class="swiper-button-next swiper-button-red"></div>
-														<div class="swiper-button-prev swiper-button-red"></div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
+									<!-- thumb 있었던 자리  -->
+
 									<div class="row">
 										<div class="form-group">
-											<div class="text-right">
-											
-												<input type='hidden' name='storeNumber' value='${info.storeNumber}'> 
-												<input type='hidden' name='storePage' value='${cri.page}'> 
-												<input type='hidden' name='searchType' value='${cri.searchType}'>
+											<div class="text-right" style="margin-right: 2em; ">
+
+												<input type='hidden' name='storeNumber'
+													value='${info.storeNumber}'> <input type='hidden'
+													name='storePage' value='${cri.page}'> <input
+													type='hidden' name='searchType' value='${cri.searchType}'>
 												<input type='hidden' name='keyword' value='${cri.keyword}'>
 
 
 												<a href="#" data-oper="del" id="button"
-													class="btn btn-info btn-fill btn-wd">Delete</a> 
-													
-													
-												<a href="#" class="btn btn-info btn-fill btn-wd" id="button">Update</a>
+													class="btn btn-info btn-fill btn-wd">Delete</a> <a href="#"
+													class="btn btn-info btn-fill btn-wd" id="button">Update</a>
 
-												<a href="#" data-oper="can" id="button" 
+												<a href="#" data-oper="can" id="button"
 													class="btn btn-info btn-fill btn-wd">Cancel</a>
 											</div>
 										</div>
@@ -222,9 +222,7 @@ swiper-slide {
 	});
 
 	/* 삭제 */
-	$(".btn[data-oper='del']")
-			.click(
-					function(e) {
+	$(".btn[data-oper='del']").click(function(e) {
 						actionForm.append("<input type='hidden' name='storeNumber' value='${info.storeNumber}'><input type='hidden' name='storePage' value='${cri.page}'>");
 						actionForm.attr("method", "post").attr("action", "/bansang/remove").submit();
 					});
@@ -237,6 +235,8 @@ swiper-slide {
 		actionForm.attr("action", "/bansang/storeManagement").submit();
 	});
 	
+	/* storeImages */
+	
 	function getStoreImages() {
 		
         $.getJSON(IP + 'upload/storeImages/' + ${info.storeNumber}, function (arr) { // DB에 저장된 이미지 이름 배열을 들고옴
@@ -244,6 +244,7 @@ swiper-slide {
 				var str = "<img class='swiper-slide' src='"+ IP + "upload/showStoreImages/" + arr[i] +"'>";
 				galleryThumbs.appendSlide(str);
 				galleryTop.appendSlide(str);
+		
             };
         });
     }

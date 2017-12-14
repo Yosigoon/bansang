@@ -17,6 +17,4 @@ public interface StoreService {
 	public RecommendDTO getInfo(Long storeNum);
 
 	public List<String> getImageList(Long storeNumber);
-	
-
 }
