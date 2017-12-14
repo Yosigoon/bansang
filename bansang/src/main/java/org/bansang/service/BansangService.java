@@ -15,6 +15,4 @@ public interface BansangService {
 
 	public void delete(RecommendDTO dto);
 
-	/* public void modify(RecommendDTO dto); */
-
 }

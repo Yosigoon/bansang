@@ -223,12 +223,10 @@ swiper-slide {
 												<input type='hidden' name='keyword' value='${cri.keyword}'>
 
 
-												<a href="#" data-oper="del" id="button"
-													class="btn btn-info btn-fill btn-wd">Delete</a> <a href="#"
-													class="btn btn-info btn-fill btn-wd" id="button">Update</a>
-
-												<a href="#" data-oper="can" id="button"
-													class="btn btn-info btn-fill btn-wd">Cancel</a>
+												<a href="#" data-oper="del" id="button" class="btn btn-info btn-fill btn-wd">Delete</a> 
+												<a href="#" data-oper="mod" id="button" class="btn btn-info btn-fill btn-wd" >Update</a>
+												<a href="#" data-oper="can" id="button" class="btn btn-info btn-fill btn-wd">Cancel</a>
+												
 											</div>
 										</div>
 									</div>
@@ -371,17 +369,27 @@ swiper-slide {
 	/*--------------------------image delete---------------------------  */
 	
 	    $('.gallery-thumbs').on('click','.canBtn' ,function () {
-        
-        console.log("clicked");
-        
-    	console.log($(this).parent());
-    	
-       	console.log("====================");
- 
-    
-	 	$(this).parent().removeClass('swiper-slide swiper-slide-active');   
-        
-    });
+       
+          /* $(this).parent().removeClass('swiper-slide swiper-slide-active');  */
+     
+/*          $(this).parent().remove(); 
+         $('#top').parent().remove();  */
+         
+         
+         var deleteIno = $(this).attr("data-ino"); 
+         
+         var idx;
+         $(".canBtn").each(function(index){
+             
+             idx = $(this).attr("data-ino");
+             
+             if(idx == deleteIno){
+                 galleryThumbs.removeSlide(index);
+                 galleryTop.removeSlide(index);
+                 return false;
+             }          
+         });
+   });
 	
 
 	/*--------------------------buttno(delete, update, cancel)---------------------------*/
@@ -405,7 +413,17 @@ swiper-slide {
 		actionForm.attr("action", "/bansang/storeManagement").submit();
 	});
 	
-//ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇ
+	// 수정(Update)
+	$(".btn[data-oper='mod']").click(function(e) {
+		actionForm.append("<input type='hidden' name='page' value='${cri.page}'>");
+		actionForm.append("<input type='hidden' name='searchType' value='${cri.searchType}'>");
+		actionForm.append("<input type='hidden' name='keyword' value='${cri.keyword}'>");
+		
+		
+		alert("수정되었습니다.");
+		
+	})
+	
 	 
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
