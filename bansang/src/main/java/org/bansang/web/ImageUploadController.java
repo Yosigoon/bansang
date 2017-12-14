@@ -74,21 +74,28 @@ public class ImageUploadController {
 		return storeService.getImageList(storeNumber);
 	}
 
-	@GetMapping("/showStoreImages/{uploadName:.+}")
-	public @ResponseBody byte[] getImages(@PathVariable("uploadName") String uploadName) throws Exception {
-		log.info("" + uploadName);
-		File file = new File("C:\\zzz\\crolling\\" + uploadName + ".png");
-		return FileUtils.readFileToByteArray(file);
-	}
+	/*
+	 * @GetMapping("/showStoreImages/{uploadName:.+}") public @ResponseBody byte[]
+	 * getImages(@PathVariable("uploadName") String uploadName) throws Exception {
+	 * log.info("" + uploadName); File file = new
+	 * File("C:\\zzz\\crolling\\" + uploadName + ".png"); return
+	 * FileUtils.readFileToByteArray(file); }
+	 */
 
-	
-	
 	@GetMapping("/thumbImages/{imageName:.+}")
 	public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
-
 		File file = new File("C:\\zzz\\crolling\\" + imageName + ".png");
-
 		return FileUtils.readFileToByteArray(file);
 	}
+	
+/*	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/thumbImages/{imageName:.+}")
+	public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
+		System.out.println("==========================" + imageName);
+		
+		File file = new File("C:\\zzz\\crolling\\" + imageName + ".png");
+		return FileUtils.readFileToByteArray(file);
+	}*/
+
 
 }

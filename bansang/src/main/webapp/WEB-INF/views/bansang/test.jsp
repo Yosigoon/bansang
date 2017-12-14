@@ -6,8 +6,6 @@
 <%@include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet"
 	href="/resources/sweetalert2/dist/sweetalert2.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="/resources/css/swiper.css">
@@ -31,48 +29,29 @@ swiper-slide {
 }
 
 .gallery-thumbs {
-	height: 80%;
+	height: 20%;
 	box-sizing: border-box;
 	padding: 10px 0;
 }
 
 .gallery-thumbs .swiper-slide {
-	width: 65%;
+	width: 25%;
 	height: 100%;
 	opacity: 0.4;
 }
 
 .gallery-thumbs .swiper-slide-active {
 	opacity: 1;
-	width: 65%;
 }
 
 .gallery-thumbs {
 	height: 100%
 }
 
-.material-icons {
-	font-size: 22px;
-	color: white
-}
-
-.swal2-popup .swal2-close {
-	display: none;
-	color: #fff;
-}
-
 #button {
 	background-color: #ffffff;
 	border-color: #EB5E28;
 	color: #EB5E28;
-}
-
-#cancelBtn {
-	width: 15%;
-	height: auto;
-	z-index: 1000;
-	margin-left: -17%;
-	margin-top: -23%;
 }
 
 /* +Add Style*/
@@ -198,8 +177,8 @@ swiper-slide {
 																<div class="swiper-wrapper" style="width: 50%"></div>
 
 																<!-- Add Arrows -->
-																<div class="swiper-button-next swiper-button-black"></div>
-																<div class="swiper-button-prev swiper-button-black"></div>
+																<div class="swiper-button-next swiper-button"></div>
+																<div class="swiper-button-prev swiper-button"></div>
 																<!-- <div class="swiper-button-prev swiper-button-red"></div> -->
 															</div>
 														</div>
@@ -257,7 +236,7 @@ swiper-slide {
 <script src="/resources/js/swiper.js"></script>
 <script>
 
-	/*--------------------------swiper event---------------------------*/
+	/*--------------------------swiper 이벤트처리---------------------------*/
 	
 	var galleryTop = new Swiper('.gallery-top', {
 	              		spaceBetween : 10,
@@ -276,8 +255,11 @@ swiper-slide {
 	              
 	galleryTop.controller.control = galleryThumbs;
 	galleryThumbs.controller.control = galleryTop;
-	
-	/* --------------------crawling image-------------------- */	
+	/* --------------------크롤링된 이미지 가져오기-------------------- */	
+/* 	
+<div class="swiper-container">
+<div class="swiper-container gallery-thumbs">
+<div class="swiper-wrapper" style="width: 50%"></div> */
 
 	function getStoreImages() {
 		
@@ -288,29 +270,22 @@ swiper-slide {
             for(var i = 0; i < arr.length; i++){
             	
 				/* var str = "<img class='swiper-slide' src='"+ IP + "upload/thumbImages/" + arr[i] +"'>"; */
-				var top = "<div class='swiper-slide'><img class='swiper-slide' src='"
-				+ IP + "upload/thumbImages/" 
-				+ arr[i] +"'></div>";
+				var str = "<img src='"+ IP + "upload/thumbImages/" + arr[i] +"'>";
+				galleryTop.appendSlide(str);
+				galleryThumbs.appendSlide(str);
+				$(".swiper-wrapper img").addClass("swiper-slide");
 				
-				var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
-				+ IP + "upload/thumbImages/" +arr[i] 
-				+"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
-				
-				galleryTop.appendSlide(top);
-				galleryThumbs.appendSlide(thumbs);
-				
-				
-				/*  $(".swiper-wrapper img").addClass("swiper-slide");  */
             };
-           
             
         });
         
     }
 	getStoreImages();
 	
+/* 	<div class="swiper-button-next swiper-button"></div>
+	<div class="swiper-button-prev swiper-button"></div> */
 
-	/*-------------------------image upload--------------------------- */
+	/*-------------------------이미지 업로드--------------------------- */
 	
 	$("#addBtn").click(function(e){
 		e.preventDefault();
@@ -350,40 +325,19 @@ swiper-slide {
 							console.log(data);
 							var obj = JSON.parse(data);
 							console.log(obj.uploadName);
-							var top = "<div class='swiper-slide'><img class='swiper-slide' src='"
-							+ IP + "upload/show/" + obj.uploadName +"'></div>";
-							
-							var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
-							+ IP + "upload/show/" + obj.uploadName +"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
-							
-							
-							galleryTop.appendSlide(top);
-							galleryThumbs.appendSlide(thumbs);
-							/* $(".swiper-wrapper img").addClass("swiper-slide"); */
+							var str = "<img src='"+ IP + "upload/show/" + obj.uploadName +"'>";
+							galleryTop.appendSlide(str);
+							galleryThumbs.appendSlide(str);
+							$(".swiper-wrapper img").addClass("swiper-slide");
 					  }
 			  
 				  }); 
 			  }
 			});
 	});
-		   
-	/*--------------------------image delete---------------------------  */
-	
-	    $('.gallery-thumbs').on('click','.canBtn' ,function () {
-        
-        console.log("clicked");
-        
-    	console.log($(this).parent());
-    	
-       	console.log("====================");
- 
-    
-	 	$(this).parent().removeClass('swiper-slide swiper-slide-active');   
-        
-    });
 	
 
-	/*--------------------------buttno(delete, update, cancel)---------------------------*/
+	/*--------------------------버튼이벤트처리---------------------------*/
 
 	var actionForm = $("#actionForm");
 	$(".btn").click(function(e) {
@@ -405,6 +359,6 @@ swiper-slide {
 	});
 	
 
-	 
+	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>

@@ -14,6 +14,8 @@ public interface BansangService {
 
 	public void delete(RecommendDTO dto);
 
+	public void sotoreModifyFileUpload(String imageNmae);
+	
 	/* public void modify(RecommendDTO dto); */
 
 }
