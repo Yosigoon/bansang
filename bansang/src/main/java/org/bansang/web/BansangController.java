@@ -2,6 +2,7 @@ package org.bansang.web;
 
 import org.bansang.dto.Criteria;
 import org.bansang.dto.RecommendDTO;
+import org.bansang.dto.RecommendImageDTO;
 import org.bansang.dto.SearchCriteria;
 import org.bansang.service.BansangService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bansang.dto.Criteria;
 import org.bansang.dto.RecommendDTO;
+import org.bansang.dto.RecommendImageDTO;
 import org.bansang.dto.SearchCriteria;
 
 public interface BansangService {
