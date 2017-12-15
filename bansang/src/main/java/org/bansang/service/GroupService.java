@@ -9,7 +9,7 @@ public interface GroupService {
 
 	public void upload(GroupDTO dto);
 
-	public List<GroupDTO> groupList();
+	public List<GroupDTO> groupList(String MemberId);
 	
 	public List<GroupMemberDTO> groupMemberList(Long groupNumber);
 }

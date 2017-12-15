@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
+import org.bansang.dto.MemberDTO;
 import org.bansang.service.GroupService;
 import org.bansang.util.ReadGroupExcel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ public class GroupController {
 	GroupService groupService;
 
 	@GetMapping("/groupList")
-	public @ResponseBody List<GroupDTO> groupList() {
-		log.info("===============Group List: " + groupService.groupList());
-		return groupService.groupList();
+	public @ResponseBody List<GroupDTO> groupList(MemberDTO dto) {
+		log.info("===============Group List: " + groupService.groupList(dto.getMemberId()));
+		return groupService.groupList(dto.getMemberId());
 	}
 	
 	@GetMapping("/groupMemberList/{groupNumber}")

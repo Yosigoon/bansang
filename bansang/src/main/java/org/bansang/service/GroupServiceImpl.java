@@ -22,9 +22,8 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<GroupDTO> groupList() {
-
-		return groupMapper.groupList();
+	public List<GroupDTO> groupList(String memberId) {
+		return groupMapper.groupList(memberId);
 	}
 
 	@Override
