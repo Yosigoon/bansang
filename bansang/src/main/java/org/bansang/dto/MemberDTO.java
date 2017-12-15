@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class MemberDTO {
+
 	private String memberId;
 	private String memberPassword;
 	private String memberName;
@@ -14,4 +15,6 @@ public class MemberDTO {
 	private String admin;
 	private String sessionKey;
 	private Date sessionLimit;
+	private Date registerDate;
+	private String[] areas;
 }

@@ -2,6 +2,7 @@ package org.bansang.web;
 
 import org.bansang.dto.Criteria;
 import org.bansang.dto.RecommendDTO;
+import org.bansang.dto.RecommendImageDTO;
 import org.bansang.dto.SearchCriteria;
 import org.bansang.service.BansangService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -84,11 +87,16 @@ public class BansangController {
 		return "redirect:/bansang/storeManagement";
 	}
 
-	/*
-	 * @PostMapping("/storeModify") public String modify(RecommendDTO dto,
-	 * RedirectAttributes rttr) { rttr.addAttribute("storeNumber",
-	 * dto.getStoreNumber()); // url에 표시 bansangService.modify(dto);
-	 * rttr.addFlashAttribute("result", "modsuccess"); return
-	 * "redirect:/bansang/sotreManagement"; }
-	 */
+	
+  @PostMapping("/storeModify")
+  public String modify(RecommendDTO dto,  RedirectAttributes rttr) {
+//	  log.info("===================");
+//	  log.info("" + dto);
+//	  log.info("===================");
+	  bansangService.modifyImage(dto);
+	  rttr.addAttribute("storeNumber", dto.getStoreNumber()); 
+	  rttr.addFlashAttribute("result", "modsuccess"); 
+	  return "redirect:/bansang/storeManagement"; 
+  }
+	 
 }
