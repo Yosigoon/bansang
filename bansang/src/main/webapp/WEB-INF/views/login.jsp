@@ -44,11 +44,11 @@
 
     <form action="/login" method="post">
       <div class="form-group has-feedback">
-        <input name="memberId" type="email" class="form-control" placeholder="Email" value="lion@bitcamp.com">
+        <input name="memberId" type="email" class="form-control" placeholder="Email" value="user00@user00.com">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input name="memberPw" type="password" class="form-control" placeholder="Password" value="1">
+        <input name="memberPassword" type="password" class="form-control" placeholder="Password" value="0">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

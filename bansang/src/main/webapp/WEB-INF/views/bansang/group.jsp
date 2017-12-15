@@ -81,7 +81,7 @@ th, td {
 							<p class="user-info">${userSession.memberName}님</p>
 					</a></li>
 					
-					<li><a href="#"> <i class="ti-shift-left"> </i>
+					<li><a href="/logout"> <i class="ti-shift-left"> </i>
 							<p class="user-info">Log Out</p>
 					</a></li>
 				</ul>

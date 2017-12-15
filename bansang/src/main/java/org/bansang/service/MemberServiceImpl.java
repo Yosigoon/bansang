@@ -1,5 +1,7 @@
 package org.bansang.service;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import org.bansang.dto.MemberDTO;
@@ -22,6 +24,18 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO autoLogin(String cookeValue) {
 		
 		return memberMapper.autoLogin(cookeValue);
+	}
+
+	@Override
+	public void keepLogin(String memberId, String sessionKey, Date sessionLimit) {
+		memberMapper.keepLogin(memberId, sessionKey, sessionLimit);
+		return;
+	}
+
+	@Override
+	public void updateAutoLimit(String sessionKey, Date sessionLimit) {
+		memberMapper.updateAutoLimit(sessionKey, sessionLimit);
+		
 	}
 
 }
