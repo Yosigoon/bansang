@@ -51,11 +51,6 @@ swiper-slide {
 	height: 100%
 }
 
-.material-icons {
-	font-size: 22px;
-	color: white
-}
-
 .swal2-popup .swal2-close {
 	display: none;
 	color: #fff;
@@ -70,11 +65,26 @@ swiper-slide {
 #cancelBtn {
 	width: 15%;
 	height: auto;
-	z-index: 1000;
-	margin-left: -17%;
-	margin-top: -23%;
+	z-index: 900;
+	margin-left: -10%;
+	margin-top: -44.5%;
 }
 
+#medal {
+	z-index: 1000;
+	margin-top: -52%;
+	margin-right: 46.5%;
+	margin-left: -6%;
+	width: 23%;
+}
+
+.show{
+	border: solid 7px #fd5d5e;
+}
+
+.hide {
+	display : none;
+}
 /* +Add Style*/
 .navbar .navbar-nav>li>a.btn-info, .btn-info {
 	border-color: #EB5E28;
@@ -109,7 +119,6 @@ swiper-slide {
 }
 </style>
 
-<button id='testBtn' >테스트</button>
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white"
 		data-active-color="danger">
@@ -189,19 +198,25 @@ swiper-slide {
 											<div class="row">
 												<div class="col-md-12">
 													<div class="form-group">
-														<!-- <label>Image</label> -->
+														<!-- <label>Image</label> -->							
 														<a href="#" id="addBtn"
 															class="btn btn-sm btn-info btn-icon pull-right"> <i
 															class="ti-plus"></i> Add
 														</a>
+														
+														
+														<a href="#" id="MainBtn"
+															class="btn btn-sm btn-success btn-icon pull-right">Main Image
+														</a>
+														
 														
 														<div class="swiper-container">
 															<div class="swiper-container gallery-thumbs">
 																<div class="swiper-wrapper" style="width: 50%"></div>
 
 																<!-- Add Arrows -->
-																<div class="swiper-button-next swiper-button-black"></div>
-																<div class="swiper-button-prev swiper-button-black"></div>
+																<span class="swiper-button-next swiper-button-black"></span>
+																<span class="swiper-button-prev swiper-button-black"></span>
 																<!-- <div class="swiper-button-prev swiper-button-red"></div> -->
 															</div>
 														</div>
@@ -218,19 +233,21 @@ swiper-slide {
 										<div class="form-group">
 											<div class="text-right" style="margin-right: 2em;">
 
-												<input type='hidden' name='storeNumber'
-													value='${info.storeNumber}'> <input type='hidden'
-													name='storePage' value='${cri.page}'> <input
-													type='hidden' name='searchType' value='${cri.searchType}'>
+												<input type='hidden' name='storeNumber'	value='${info.storeNumber}'>
+												<input type='hidden' name='storePage' value='${cri.page}'>
+												<input type='hidden' name='searchType' value='${cri.searchType}'>
 												<input type='hidden' name='keyword' value='${cri.keyword}'>
 
 
-												<a href="#" data-oper="del" id="button"
-													class="btn btn-info btn-fill btn-wd">Delete</a> <a href="#"
-													class="btn btn-info btn-fill btn-wd" id="button">Update</a>
+												<a href="#" data-oper="del" class="btn btn-sm btn-info btn-icon pull-right">Delete</a> 
+												<a href="#" data-oper="mod" class="btn btn-sm btn-info btn-icon pull-right" >Update</a>
+												<a href="#" data-oper="can" class="btn btn-sm btn-info btn-icon pull-right">Back</a>
 
-												<a href="#" data-oper="can" id="button"
-													class="btn btn-info btn-fill btn-wd">Cancel</a>
+
+<!-- 											<a href="#" data-oper="del" id="button" class="btn btn-info btn-fill btn-wd">Delete</a> 
+												<a href="#" data-oper="mod" id="button" class="btn btn-info btn-fill btn-wd" >Update</a>
+												<a href="#" data-oper="can" id="button" class="btn btn-info btn-fill btn-wd">Back</a> -->
+												
 											</div>
 										</div>
 									</div>
@@ -258,7 +275,7 @@ swiper-slide {
 <!--  -->
 <script src="/resources/js/swiper.js"></script>
 <script>
-
+	var imageIdx = 0;
 	/*--------------------------swiper event---------------------------*/
 	
 	var galleryTop = new Swiper('.gallery-top', {
@@ -285,24 +302,30 @@ swiper-slide {
 		
 		var storeNumber =  ${info.storeNumber}
 	
-        $.getJSON(IP + 'upload/storeImages/'+ storeNumber , function (arr) {    	
+        $.getJSON(IP + 'upload/storeImages/'+ storeNumber , function (arr) {  
+        	
+        	
         	
             for(var i = 0; i < arr.length; i++){
             	
 				/* var str = "<img class='swiper-slide' src='"+ IP + "upload/thumbImages/" + arr[i] +"'>"; */
 				var top = "<div class='swiper-slide'><img class='swiper-slide' id='top' src='"
-				+ IP + "upload/thumbImages/" 
+				+ IP + "upload/storeShow/s_" 
 				+ arr[i] +"'></div>";
 				
-				var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
-				+ IP + "upload/thumbImages/" +arr[i] 
-				+"'><img data-ino='"+ i +"' id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
+				var thumbs = "<div class='swiper-slide' id='main'><img id='mark' data-name='" 
+				+ arr[i] + "'class='swiper-slide-active' src='"
+				+ IP + "upload/storeShow/s_" +arr[i] +"'><img data-ino='"+ (imageIdx++) +"' id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
+				
+				var mainImage = "${info.imageName}";
 				
 				galleryTop.appendSlide(top);
 				galleryThumbs.appendSlide(thumbs);
-				
-				
-				/*  $(".swiper-wrapper img").addClass("swiper-slide");  */
+								
+				if(arr[i] === mainImage){
+					$("#mark[data-name='"+arr[i]+"']").siblings().addClass('hide');
+					$("#mark[data-name='"+arr[i]+"']").addClass('show');
+				}
             };
            
             
@@ -335,7 +358,7 @@ swiper-slide {
 				  
 				  
 			  $.ajax({
-					  url : IP + 'upload/register',
+					  url : IP + 'upload/storeRegister',
 					  data : formData,
 					  dataType : 'text',
 					  processData : false, 
@@ -351,18 +374,18 @@ swiper-slide {
 			              });
 							console.log(data);
 							var obj = JSON.parse(data);
-							console.log(obj.uploadName);
+							
 							var top = "<div class='swiper-slide'><img class='swiper-slide' id='top' src='"
-							+ IP + "upload/show/" + obj.uploadName +"'></div>";
+							+ IP + "upload/storeShow/" + obj.thumbnailName +"'></div>";
 							
-							var thumbs = "<div class='swiper-slide'><img class='swiper-slide-active' src='"
-							+ IP + "upload/show/" + obj.uploadName +"'><img id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
-							
-							
-							
+							var thumbs = "<div class='swiper-slide'><img id='mark' data-name='" + obj.uploadName + "' class='swiper-slide-active' src='"
+							+ IP + "upload/storeShow/" + obj.thumbnailName +"'><img data-ino='" + (imageIdx++) + "'id='cancelBtn' class='canBtn' src='/resources/img/cancel-button.png'></div>";
+					
 							galleryTop.appendSlide(top);
 							galleryThumbs.appendSlide(thumbs);
-							/* $(".swiper-wrapper img").addClass("swiper-slide"); */
+							
+					
+							
 							
 							
 					  }
@@ -374,14 +397,32 @@ swiper-slide {
 	
 	/*--------------------------image delete---------------------------  */
 	
-	$('.gallery-thumbs').on('click','.canBtn' ,function () {
-        
-	  	/* $(this).parent().removeClass('swiper-slide swiper-slide-active');  */
-	 
-/*  		$(this).parent().remove(); 
-	 	$('#top').parent().remove();  */
-	 	
-	 	
+
+    $('.gallery-thumbs').on('click','.canBtn' ,function () {
+
+       
+          /* $(this).parent().removeClass('swiper-slide swiper-slide-active');  */
+     
+/*          $(this).parent().remove(); 
+         $('#top').parent().remove();  */
+         
+         
+         var deleteIno = $(this).attr("data-ino"); 
+         
+         var idx;
+         $(".canBtn").each(function(index){
+             
+             idx = $(this).attr("data-ino");
+             
+             if(idx == deleteIno){
+                 galleryThumbs.removeSlide(index);
+                 galleryTop.removeSlide(index);
+                 return false;
+             }          
+         });
+   });
+
+
 	 	var deleteIno = $(this).attr("data-ino"); 
 	 	
 	 	var idx;
@@ -397,14 +438,14 @@ swiper-slide {
 	 		
 	 	});
 	 	
-	 	 
-        
-    });
+	 
+
 	
 
 	/*--------------------------buttno(delete, update, cancel)---------------------------*/
 
 	var actionForm = $("#actionForm");
+	var modForm = $("#modForm");
 	$(".btn").click(function(e) {
 		e.preventDefault();
 	});
@@ -424,6 +465,36 @@ swiper-slide {
 	});
 	
 
-	 
+	// 수정(Update)
+	$(".btn[data-oper='mod']").click(function(e) {
+		$("img[class*='swiper-slide-active']").each(function(index){
+			console.log($(this).attr('data-name'));
+			modForm.append("<input type='hidden' name='images' value='" + $(this).attr('data-name') + "'>");
+	 	});
+		modForm.append("<input type='hidden' name='imageName' value='" + $("#mark[class*='show']").attr('data-name') + "'>");
+		modForm.attr("action", "/bansang/storeModify").submit();
+		
+	})
+	
+	$("#MainBtn").click(function(e) {
+		
+		e.preventDefault();
+		//console.log($("div[class *= 'gallery-thumbs']"));
+		//console.log($("div[class *= 'gallery-thumbs'] div[class *= 'swiper-slide-active']")); 
+		var selectedMainImage = $("div[class *= 'gallery-thumbs'] div[class *= 'swiper-slide-active'] #mark");
+		console.log($("#medal[class*='show']"));
+		$("#mark[class*='show']").siblings().removeClass('hide')
+		$("#mark[class*='show']").removeClass("show");
+		
+		console.log(selectedMainImage);
+ 		selectedMainImage.addClass('show');
+ 		selectedMainImage.siblings().addClass('hide');
+		
+		
+		
+		
+		
+	})
+	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>

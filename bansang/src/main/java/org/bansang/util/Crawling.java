@@ -72,13 +72,13 @@ public class Crawling extends Thread {
 			BufferedImage img = ImageIO.read(image);
 			UUID uuid = UUID.randomUUID();
 			String uploadName = uuid.toString();
-			String filePath = "C:\\zzz\\crawling\\" + uploadName + ".png";
+			String filePath = "C:\\zzz\\crawling\\" + uploadName + ".jpg";
 			// ImageIO.write(img, "png", new File(filePath));
 
-			ImageIO.write(img, "png", new File(filePath));
+			ImageIO.write(img, "jpg", new File(filePath));
 			
 			// crop image---------------------
-			File file = new File("C:\\zzz\\crawling\\"+ uploadName + ".png");
+			File file = new File("C:\\zzz\\crawling\\"+ uploadName + ".jpg");
 
 			byte[] imageInByte = FileUtils.readFileToByteArray(file);
 			
@@ -98,7 +98,7 @@ public class Crawling extends Thread {
 			
 			String thumbnailName = "s_" + uploadName;
 			
-			ImageIO.write(resizedImage, "png", new File("C:\\zzz\\crawling\\" + thumbnailName + ".png"));
+			ImageIO.write(resizedImage, "jpg", new File("C:\\zzz\\crawling\\" + thumbnailName + ".jpg"));
 			// -------------------------------	
 			
 			storeMapper.uploadStoreImage(uploadName, storeNumber);

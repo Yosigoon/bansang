@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.javascript.host.Console;
 
 import lombok.extern.java.Log;
 
-@CrossOrigin(origins="*", allowedHeaders="*")
+@CrossOrigin
 @RequestMapping("/upload/*")
 @RestController
 @Log
@@ -58,14 +58,13 @@ public class ImageUploadController {
 		UUID uuid = UUID.randomUUID();
 		String uploadName = uuid.toString() + "_" + original;
 
-		System.out.println(uploadName);
-		
 		String filePath = "C:\\zzz\\zupload\\" + uploadName;
 		OutputStream out = new FileOutputStream(filePath);
 		FileCopyUtils.copy(file.getInputStream(), out);
 		
+		
 		// crop image---------------------
-		BufferedImage origin = ImageIO.read(file.getInputStream());
+        BufferedImage origin = ImageIO.read(file.getInputStream());
 
 		int height = origin.getHeight();
 		int width = origin.getWidth();
@@ -86,6 +85,7 @@ public class ImageUploadController {
 		map.put("uploadName", uploadName);
 		return map;
 	}
+	
 	
 	@PostMapping("/profile")
 	public @ResponseBody Map<String, String> uploadProfileImagePost(@RequestParam("file") MultipartFile file, MemberDTO dto)
@@ -123,6 +123,7 @@ public class ImageUploadController {
 			
 		memberService.registerImage(uploadName, dto.getMemberId());
 		
+
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("imageName", uploadName);
 		
@@ -137,26 +138,30 @@ public class ImageUploadController {
 		File file = new File("C:\\zzz\\zupload\\" + uploadName);
 		return FileUtils.readFileToByteArray(file);
 	}
+	
 
 	@GetMapping("/recommendImages/{recommendNumber}")
 	public @ResponseBody List<String> list(@PathVariable("recommendNumber") Long recommendNumber) {
 		return recommendService.getImageList(recommendNumber);
-    }
-	
-	@GetMapping("/storeImages/{storeNumber}")
-	public @ResponseBody List<String> storeImages(@PathVariable("storeNumber") Long storeNumber) {
-		return storeService.getImageList(storeNumber);
 	}
 
+	
+	
 	@GetMapping("/thumbImages/{imageName:.+}")
-	public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
+    public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
+        File file = new File("C:\\zzz\\crawling\\" + imageName + ".png");
 
-		File file = new File("C:\\zzz\\crawling\\" + imageName + ".png");
+        return FileUtils.readFileToByteArray(file);
+    }
+	
 
+	@GetMapping("/zuploadThumbNoExtension/{imageName:.+}")
+	public @ResponseBody byte[] zuploadThumbNoExtension(@PathVariable("imageName") String imageName) throws Exception {
+
+		File file = new File("C:\\zzz\\zupload\\" + imageName);
 
 		return FileUtils.readFileToByteArray(file);
 	}
-	
 
 /*	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/thumbImages/{imageName:.+}")
@@ -166,16 +171,65 @@ public class ImageUploadController {
 		File file = new File("C:\\zzz\\crolling\\" + imageName + ".png");
 		return FileUtils.readFileToByteArray(file);
 	}*/
-
 	
-	//dakjdflkajdfkja
-
+	// storeModify crawling 
+	@GetMapping("/storeImages/{storeNumber}")
+	public @ResponseBody List<String> storeImages(@PathVariable("storeNumber") Long storeNumber) {
+		return storeService.getImageList(storeNumber);
+	}
 	
-	@GetMapping("/zuploadThumbNoExtension/{imageName:.+}")
-	public @ResponseBody byte[] zuploadThumbNoExtension(@PathVariable("imageName") String imageName) throws Exception {
+	
+	// storeModify ImageUpload
+	@PostMapping("/storeRegister")
+	public @ResponseBody Map<String, String> storeRegister(@RequestParam("file") MultipartFile file)
+			throws IOException {
+		
+		String original = file.getOriginalFilename();
+		UUID uuid = UUID.randomUUID();
+		String uploadName = uuid.toString() + "_" + original;
 
-		File file = new File("C:\\zzz\\zupload\\" + imageName);
+		String filePath = "C:\\zzz\\crawling\\" + uploadName;
+		
+		
+		OutputStream out = new FileOutputStream(filePath);
+		FileCopyUtils.copy(file.getInputStream(), out);
+		
+		
+		
+        BufferedImage origin = ImageIO.read(file.getInputStream());
 
+		int height = origin.getHeight();
+		int width = origin.getWidth();
+		
+		int imgsize = height >= width ? width : height;
+		
+		BufferedImage croppedImage = Scalr.crop(origin, (width-imgsize)/2, (height-imgsize)/2+50, imgsize, imgsize*3/4);
+
+		BufferedImage resizedImage = Scalr.resize(croppedImage, 600, 450);
+		
+		String[] nameArr = uploadName.split("\\.");
+		
+		uploadName = nameArr[0];
+		
+		String thumbnailName = "s_" + uploadName;
+		ImageIO.write(resizedImage, "jpg", new File("C:\\zzz\\crawling\\" + thumbnailName + ".jpg"));
+			
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("original", file.getOriginalFilename());
+		map.put("thumbnailName", thumbnailName);
+		map.put("uploadName", uploadName);
+		return map;
+	}
+	
+	@GetMapping("/storeShow/{imageName:.+}")
+	public @ResponseBody byte[] storeShow(@PathVariable("imageName") String imageName) throws Exception {
+		log.info("=====================");
+		log.info("" + imageName);
+		log.info("=====================");
+		File file = new File("C:\\zzz\\crawling\\" + imageName + ".jpg");
 		return FileUtils.readFileToByteArray(file);
 	}
+	
+
 }
