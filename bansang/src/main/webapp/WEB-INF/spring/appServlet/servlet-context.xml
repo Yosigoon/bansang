@@ -28,6 +28,20 @@
 	
 	<context:component-scan base-package="org.bansang.web" />
 	
+	<beans:bean id="loginChecker" class="org.bansang.interceptor.LoginCheckerInterceptor"></beans:bean>
+    <beans:bean id="LoginAfter" class="org.bansang.interceptor.LoginAfterInterceptor"></beans:bean>
+    <interceptors>
+        <interceptor>
+            <mapping path="/bansang/*"/>
+            <beans:ref bean="loginChecker"/>
+        </interceptor>
+        
+        <interceptor>
+        	<mapping path="/login"></mapping>
+        	<beans:ref bean="LoginAfter"/>
+    	</interceptor>
+        
+    </interceptors>
 	
 	
 </beans:beans>

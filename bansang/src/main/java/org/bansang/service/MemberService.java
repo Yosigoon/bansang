@@ -1,12 +1,22 @@
 package org.bansang.service;
 
-import java.util.List;
 
-import org.bansang.dto.MemberAreaDTO;
+import java.util.Date;
+import java.util.List;
 import org.bansang.dto.MemberDTO;
 import org.springframework.http.ResponseEntity;
 
+import org.bansang.dto.MemberAreaDTO;
+
 public interface MemberService {
+
+	public MemberDTO login(MemberDTO dto);
+
+	public MemberDTO autoLogin(String cookeValue);
+
+	public void keepLogin(String memberId, String sessionKey, Date sessionLimit);
+
+	public void updateAutoLimit(String sessionKey, Date sessionLimit);
 
 	public void register(MemberDTO dto);
 

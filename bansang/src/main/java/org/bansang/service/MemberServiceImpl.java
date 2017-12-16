@@ -1,25 +1,57 @@
 package org.bansang.service;
 
+
+import java.util.Date;
+
+import javax.inject.Inject;
+
+import org.bansang.dto.MemberDTO;
+import org.bansang.mapper.MemberMapper;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
 import org.bansang.dto.MemberAreaDTO;
-import org.bansang.dto.MemberDTO;
-import org.bansang.mapper.MemberMapper;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
-
 @Service
-@Transactional
 @Log
-public class MemberServiceImpl implements MemberService {
+@Transactional
+public class MemberServiceImpl implements MemberService{
 
-	@Autowired
+	@Inject
 	private MemberMapper memberMapper;
+	
+	@Override
+	public MemberDTO login(MemberDTO dto) {
+		
+		return memberMapper.login(dto);
+	}
+
+	@Override
+	public MemberDTO autoLogin(String cookeValue) {
+		
+		return memberMapper.autoLogin(cookeValue);
+	}
+
+	@Override
+	public void keepLogin(String memberId, String sessionKey, Date sessionLimit) {
+		memberMapper.keepLogin(memberId, sessionKey, sessionLimit);
+		return;
+	}
+
+	@Override
+	public void updateAutoLimit(String sessionKey, Date sessionLimit) {
+		memberMapper.updateAutoLimit(sessionKey, sessionLimit);
+		
+	}
 
 	@Override
 	public void register(MemberDTO memberDto) {

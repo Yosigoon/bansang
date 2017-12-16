@@ -38,16 +38,16 @@ public class BansangServiceImpl implements BansangService {
 		bansangMapper.deleteImg(dto);
 	}
 
+	@Override
+	public void modifyImage(RecommendDTO dto) {
+		bansangMapper.deleteImg(dto);
+		String[] images = dto.getImages().clone();
 
-/*	@Override
-	public void sotoreModifyFileUpload(String imageNmae) {
-		bansangMapper.storeModifyFileUpload(imageNmae);
-		return;
-	}*/
+		for (int i = 0; i < images.length; i++) {
+			log.info("" + images[i]);
+			bansangMapper.updatedImg(dto.getStoreNumber(), images[i]);	
+		}
+		bansangMapper.updateMainImage(dto);
+	}
 
-/*	@Override
-	public void modify(RecommendDTO dto) {
-		bansangMapper.modify(dto);
-		return;
-	}*/
 }

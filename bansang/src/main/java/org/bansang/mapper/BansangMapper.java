@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.bansang.dto.Criteria;
 import org.bansang.dto.RecommendDTO;
 import org.bansang.dto.RecommendImageDTO;
@@ -26,7 +27,6 @@ public interface BansangMapper {
 
 	@Delete("delete from tbl_store where store_number = #{storeNumber}")
 	public void delete(RecommendDTO dto);
-	
 
 	@Delete("delete from tbl_store_image where store_number = #{storeNumber}")
 	public void deleteImg(RecommendDTO dto);
@@ -34,7 +34,12 @@ public interface BansangMapper {
 //	@Insert("insert into table_store_image (image_name, store_number) values (#{imageName}, LAST_INSERT_ID())")
 //    public void storeModifyFileUpload(String imageName);
 
-	@Insert("insert into table_store_image (image_name, store_number) values (#{imageName}, LAST_INSERT_ID())")
-	public void storeModifyFileUpload(String imageName);
+	
+	@Insert("insert into tbl_store_image (image_name, store_number) values (#{imageName}, #{storeNumber})")
+	public void updatedImg(@Param("storeNumber") Long storeNumber, @Param("imageName") String imageName );
+
+	@Update("update tbl_store set image_name= #{imageName} where store_number= #{storeNumber}")
+	public void updateMainImage(RecommendDTO dto);
+
 	
 }
