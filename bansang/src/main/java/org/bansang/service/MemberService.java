@@ -4,7 +4,10 @@ package org.bansang.service;
 import java.util.Date;
 import java.util.List;
 import org.bansang.dto.MemberDTO;
+import org.springframework.http.ResponseEntity;
+
 import org.bansang.dto.MemberAreaDTO;
+
 public interface MemberService {
 
 	public MemberDTO login(MemberDTO dto);
@@ -22,5 +25,7 @@ public interface MemberService {
 	public MemberDTO getInfo(MemberDTO dto);
 
 	public List<MemberAreaDTO> getArea(MemberDTO dto);
+	
+	public MemberDTO getLoginInfo(MemberDTO dto);
 
 }

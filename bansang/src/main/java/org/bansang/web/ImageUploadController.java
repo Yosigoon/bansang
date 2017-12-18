@@ -149,7 +149,7 @@ public class ImageUploadController {
 	
 	@GetMapping("/thumbImages/{imageName:.+}")
     public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
-        File file = new File("C:\\zzz\\crawling\\" + imageName + ".png");
+        File file = new File("C:\\zzz\\crawling\\" + imageName + ".jpg");
 
         return FileUtils.readFileToByteArray(file);
     }

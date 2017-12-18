@@ -42,5 +42,8 @@ public interface MemberMapper {
 
 	@Select("select area from tbl_area where member_id = #{memberId}")
 	public List<MemberAreaDTO> selectArea(MemberDTO dto);
+	
+	@Select("select * from tbl_member where member_id = #{memberId} and member_password = #{memberPassword}")
+	public MemberDTO selectLoginInfo(MemberDTO dto);
 
 }

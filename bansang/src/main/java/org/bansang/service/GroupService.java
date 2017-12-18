@@ -10,6 +10,8 @@ public interface GroupService {
 
 	public void upload(GroupDTO dto);
 
+	public List<GroupDTO> appGroupList(String MemberId);
+
 	public List<GroupDTO> groupList(MemberDTO dto);
 	
 	public List<GroupMemberDTO> groupMemberList(Long groupNumber);

@@ -17,7 +17,8 @@ public class RecommendDTO {
 	private String areaKeyword;
 	private String[] images;
 	private String imageName;
-
+	private Double radius;
+	private Long curDataCount;
 }
 
 

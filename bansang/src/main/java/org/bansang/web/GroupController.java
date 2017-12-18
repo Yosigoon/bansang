@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
 import org.bansang.dto.MemberDTO;
-import org.bansang.dto.RecommendDTO;
 import org.bansang.service.GroupService;
 import org.bansang.util.ReadGroupExcel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +38,11 @@ public class GroupController {
 	@Autowired
 	GroupService groupService;
 
+	@GetMapping("/appGroupList")
+	public @ResponseBody List<GroupDTO> appGroupList(MemberDTO dto) {
+		return groupService.appGroupList(dto.getMemberId());
+	}
+	
 	@GetMapping("/groupList") 
 	public @ResponseBody List<GroupDTO> groupList(MemberDTO dto) {
 		return groupService.groupList(dto);

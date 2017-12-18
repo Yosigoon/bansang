@@ -31,8 +31,11 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<GroupDTO> groupList(MemberDTO dto) {
+	public List<GroupDTO> appGroupList(String memberId) {
+		return groupMapper.appGroupList(memberId);
+	}
 
+	public List<GroupDTO> groupList(MemberDTO dto) {
 		return groupMapper.groupList(dto);
 	}
 
@@ -71,7 +74,7 @@ public class GroupServiceImpl implements GroupService {
 	public void addGroupMember(GroupMemberDTO dto) {
 		groupMemberMapper.addGroupMember(dto);
 		MemberDTO isUser = memberMapper.isUser(dto);
-		if(isUser != null) { // ±âÁ¸ »ç¿ëÀÚ¶ó¸é...
+		if(isUser != null) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½...
 			groupMemberMapper.updateMembership(dto);
 		}
 		groupMapper.upCount(dto.getGroupNumber());
