@@ -149,7 +149,7 @@ public class ImageUploadController {
 	
 	@GetMapping("/thumbImages/{imageName:.+}")
     public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
-        File file = new File("C:\\zzz\\crawling\\" + imageName + ".png");
+        File file = new File("C:\\zzz\\crawling\\" + imageName + ".jpg");
 
         return FileUtils.readFileToByteArray(file);
     }
@@ -162,15 +162,6 @@ public class ImageUploadController {
 
 		return FileUtils.readFileToByteArray(file);
 	}
-
-/*	@ResponseStatus(HttpStatus.OK)
-	@GetMapping("/thumbImages/{imageName:.+}")
-	public @ResponseBody byte[] thumb(@PathVariable("imageName") String imageName) throws Exception {
-		System.out.println("==========================" + imageName);
-		
-		File file = new File("C:\\zzz\\crolling\\" + imageName + ".png");
-		return FileUtils.readFileToByteArray(file);
-	}*/
 	
 	// storeModify crawling 
 	@GetMapping("/storeImages/{storeNumber}")
@@ -224,12 +215,11 @@ public class ImageUploadController {
 	
 	@GetMapping("/storeShow/{imageName:.+}")
 	public @ResponseBody byte[] storeShow(@PathVariable("imageName") String imageName) throws Exception {
-		log.info("=====================");
+/*		log.info("=====================");
 		log.info("" + imageName);
-		log.info("=====================");
+		log.info("=====================");*/
 		File file = new File("C:\\zzz\\crawling\\" + imageName + ".jpg");
 		return FileUtils.readFileToByteArray(file);
 	}
-	
 
 }

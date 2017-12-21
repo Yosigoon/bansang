@@ -8,11 +8,57 @@
 <link rel="stylesheet" href="/resources/assets/css/store-management.css" />
 
 <style>
+
 #searchBtn, #listBtn {
 	background-color: #ffffff;
 	border-color: #EB5E28;
 	color: #EB5E28;
 }
+
+.card-img-top{
+	width: 100%;
+	height: 15em; 	
+}
+
+.card {
+    border-radius: 20px;
+    box-shadow: 0 6px 6px rgba(204, 197, 185, 0.5);
+	width:25em;
+	overflow: hidden;
+	background-color: transparent;
+}
+
+.card:hover {
+  box-shadow: 0 34px 32px -33px rgba(0, 0, 0, .18);
+  -webkit-transform: translate(0px, -15px);
+  -ms-transform: translate(0px, -15px);
+  transform: translate(0px, -15px);
+}
+
+.letter {
+	font-size: 150pt;
+	font-weight: 800;
+	position: absolute;
+	z-index: -1;
+	left: 60%;
+	color: #f3f3f3;
+	bottom: -15%;
+}
+
+.rotate {
+	transform: rotate(40deg);
+	-webkit-transform: rotate(40deg);
+	-moz-transform: rotate(40deg);
+	-ms-transform: rotate(40deg);
+	-o-transform: rotate(40deg);
+}
+
+@media ( min-width : 768px) {
+	.col-md-4:nth-child(3n+1) {
+		clear: left;
+	}
+}
+
 </style>
 
 <div class="wrapper">
@@ -22,18 +68,17 @@
 			<div class="logo">
 				<a href="#" class="simple-text">동네반상</a>
 			</div>
-
 			<ul class="nav">
-				<li><a href="/bansang/profile"><i class="ti-user"></i>
+				<!-- <li><a href="/bansang/profile"><i class="ti-user"></i>
 						<p>User Profile</p> </a></li>
 				<li><a href="/bansang/group"> <i class="ti-view-list-alt"></i>
 						<p>Group</p>
+				</a></li> -->
+				<li class="active">
+				<a href="/bansang/storeManagement"> 
+					<i class="ti-desktop"></i>
+					<p>Store Management</p>
 				</a></li>
-				<li class="active"><a href="/bansang/storeManagement"> <i
-						class="ti-desktop"></i>
-						<p>Store Management</p>
-				</a></li>
-
 			</ul>
 		</div>
 	</div>
@@ -51,14 +96,11 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><i class="ti-user"> </i>
-							<p class="user-info">홍길동</p> </a></li>
-
+					<li><a href="#"><i class="ti-user"></i>
+							<p class="user-info">홍길동</p></a></li>
 					<li><a href="#"> <i class="ti-shift-left"> </i>
-							<p class="user-info">Log Out</p>
-					</a></li>
+							<p class="user-info">Log Out</p></a></li>
 				</ul>
-
 			</div>
 		</div>
 		</nav>
@@ -83,61 +125,48 @@
 											Area Keyword</option>
 									</select> <input type="text" class="form-control input-sm"
 										name="keyword" id="keywordInput" placeholder="search"
-										aria-controls="example1" value="${cri.keyword}"> 
-										<a href="#" data-oper="serach" class="btn btn-info btn-fill btn-wd"
-										id="searchBtn">Search</a>
-										<a href="#" data-oper="list" class="btn btn-info btn-fill btn-wd"
-										id="listBtn">New</a>
+										aria-controls="example1" value="${cri.keyword}"> <a
+										href="#" data-oper="serach"
+										class="btn btn-info btn-fill btn-wd" id="searchBtn">Search</a>
+									<a href="#" data-oper="list"
+										class="btn btn-info btn-fill btn-wd" id="listBtn">New</a>
 								</div>
-
-
-
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
-								<table id="example1"
-									class="table table-bordered table-striped dataTable"
-									role="grid" aria-describedby="example1_info">
-									<thead>
-										<tr role="row">
-											<th class="sorting_asc" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1" aria-sort="ascending"
-												aria-label="Rendering engine: activate to sort column descending"
-												style="width: 297px;">Area</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="Browser: activate to sort column ascending"
-												style="width: 361px;">Store Name</th>
-											<th class="sorting" tabindex="0" aria-controls="example1"
-												rowspan="1" colspan="1"
-												aria-label="Platform(s): activate to sort column ascending"
-												style="width: 322px;">Address</th>
-										</tr>
-									</thead>
-									<tbody>
+								<div class="container" style="margin-top: 2em">
+									<div class="row">
 										<c:forEach var="list" items="${list}">
-											<tr role="row" class="odd">
-												<td class="sorting_1">${list.areaKeyword}</td>
-												<td><a
-													href='/bansang/storeModify?storeNumber=${list.storeNumber}&page=${cri.page}&searchType=${cri.searchType}&keyword=${cri.keyword}'>${list.storeName}</a></td>
-												<td>${list.storeAddress }</td>
-											</tr>
+											<div class="col-md-4">
+												<div class="card">
+												<a href='/bansang/storeModify?storeNumber=${list.storeNumber}&page=${cri.page}&searchType=${cri.searchType}&keyword=${cri.keyword}'>
+													<img class="card-img-top" 
+													src="/upload/thumbImages/s_${list.imageName}" alt="Card image cap"></a>
+													<div class="card-block">
+														<h4 class="card-title">${list.storeName}/${list.areaKeyword}</h4>
+														<p class="card-text">${list.storeAddress}</p>
+													</div>
+												</div>
+											</div>
 										</c:forEach>
-									</tbody>
-								</table>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-5">
-								<div class="dataTables_info" id="example1_info" role="status"
-									aria-live="polite"><!-- Showing 1 to 10 of 57 entries --></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="dataTables_info" id="example1_info" role="status"
+								aria-live="polite">
+								<!-- Showing 1 to 10 of 57 entries -->
 							</div>
-							<div class="col-sm-7">
-								<div class="dataTables_paginate paging_simple_numbers"
-									id="example1_paginate">
-									<ul class="pagination">
-										<!-- <li class="paginate_button previous disabled"
+						</div>
+						<div class="col-sm-7">
+							<div class="dataTables_paginate paging_simple_numbers"
+								id="example1_paginate">
+								<ul class="pagination">
+									<!-- <li class="paginate_button previous disabled"
 											id="example1_previous">
 											<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Prev</a></li>
 										<li class="paginate_button active"><a href="#"
@@ -155,8 +184,7 @@
 										<li class="paginate_button next" id="example1_next"><a
 											href="#" aria-controls="example1" data-dt-idx="7"
 											tabindex="0">Next<-/a></li> -->
-									</ul>
-								</div>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -167,7 +195,7 @@
 </div>
 
 <form id='actionForm' method="get"></form>
-
+<script type="text/javascript" src="/resources/js/ip.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -177,6 +205,7 @@
 <!-- Bootstrap 3.3.7 -->
 <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 
+<script src="/resources/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/resources/assets/js/store-management.js"></script>
 <script src="/resources/js/pagination.js"></script>
@@ -209,14 +238,26 @@
 			
 			$(".pagination").html(pageStr);
 
-/* ------------------------------ */
+/* ----------------------------------------------- */
 
-			var msg = '${result}';
+		var msg = '${result}';
 			if (msg === 'regsuccess') {
 			    alert("작업 완료");
 			}else if(msg === 'delsuccess'){
-			    alert("삭제 완료");
-			}
+                swal(
+                       'Deleted!',
+                       'Your comments has been deleted.',
+                       'success'
+	                 )
+			}else if(msg === 'modsuccess'){
+				swal({
+					  position: 'conter',
+					  type: 'success',
+					  title: 'Your work has been saved',
+					  showConfirmButton: false,
+					  timer: 1000
+					})
+			} 
 			
 	/* 검색처리 */
          $("#searchBtn").on("click",function(e){
@@ -242,7 +283,10 @@
          $("#listBtn").on("click",function(e){
         	 self.location="/bansang/storeManagement";
          });
-	
+         
+         /* ----------------------------------------------------- */
+         
+
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 
