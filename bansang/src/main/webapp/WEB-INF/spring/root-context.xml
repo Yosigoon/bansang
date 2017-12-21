@@ -13,7 +13,7 @@
 			<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-        <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.35/dnbs?useSSL=false"></property>
+        <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.35/dnbs?useSSL=false&amp;zeroDateTimeBehavior=convertToNull"></property>
         <property name="username" value="java96"></property>
         <property name="password" value="java96"></property>
     </bean>
@@ -24,12 +24,10 @@
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-
-       <property name="dataSource" ref="dataSource"></property>
-   </bean>
-
-   <tx:annotation-driven/> <!-- annotation을 쓰겠다 -->
+      <property name="dataSource" ref="dataSource"></property>
+   	</bean>
+	<tx:annotation-driven/> <!-- annotation을 쓰겠다 -->
 	
-	<mybatis-spring:scan base-package="org.bansang.mapper"/>
-	<context:component-scan base-package="org.bansang.service"></context:component-scan>
+		<mybatis-spring:scan base-package="org.bansang.mapper"/>
+		<context:component-scan base-package="org.bansang.service"></context:component-scan>
 </beans>

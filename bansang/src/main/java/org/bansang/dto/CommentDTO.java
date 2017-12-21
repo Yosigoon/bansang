@@ -10,4 +10,6 @@ public class CommentDTO {
 	private Long recommendNumber;
 	private Date registerDate;
 	private String memberId;
+	private String memberName;
+	private String memberImage;
 }

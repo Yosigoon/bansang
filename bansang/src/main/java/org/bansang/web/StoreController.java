@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
+
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,9 +34,25 @@ public class StoreController {
 	private StoreService storeService;
 
 	@GetMapping("/list")
-    public List<RecommendDTO> list(){
-		return storeService.list();
+    public List<RecommendDTO> list(RecommendDTO dto){
+		return storeService.list(dto);
 	}
+	
+	@GetMapping("/listMap")
+    public List<RecommendDTO> listMap(RecommendDTO dto){
+		return storeService.listMap(dto);
+	}
+	
+	@GetMapping("/specificList")
+    public List<RecommendDTO> specificList(RecommendDTO dto){
+		return storeService.specificList(dto);
+	}
+	
+    @GetMapping("/specificListMap")
+    public List<RecommendDTO> specificListMap(RecommendDTO dto){
+		return storeService.specificListMap(dto);
+	}
+	
 
     @GetMapping("/view")
     public RecommendDTO getView(Long storeNumber) {

@@ -8,7 +8,9 @@ import org.bansang.dto.RecommendDTO;
 public interface StoreService {
 
 
-	public List<RecommendDTO> list();
+	public List<RecommendDTO> list(RecommendDTO dto);
+	
+	public List<RecommendDTO> listMap(RecommendDTO dto);
 	
 	public RecommendDTO view(Long storeNumber);
 
@@ -17,4 +19,10 @@ public interface StoreService {
 	public RecommendDTO getInfo(Long storeNum);
 
 	public List<String> getImageList(Long storeNumber);
+
+	public List<RecommendDTO> specificList(RecommendDTO dto);
+
+	public List<RecommendDTO> specificListMap(RecommendDTO dto);
+
+	
 }

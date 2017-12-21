@@ -7,11 +7,14 @@ import lombok.Data;
 @Data
 public class MemberDTO {
 
-	String memberId;
-	String memberPassword;
-	String memberName;
-	String memberImage;
-	String memberToken;
-	Date registerDate;
-	String[] areas;
+	private String memberId;
+	private String memberPassword;
+	private String memberName;
+	private String memberImage;
+	private String memberToken;
+	private String admin;
+	private String sessionKey;
+	private Date sessionLimit;
+	private Date registerDate;
+	private String[] areas;
 }

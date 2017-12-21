@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.bansang.dto.MemberDTO;
 import org.bansang.dto.RecommendDTO;
 
 public interface RecommendMapper {
@@ -36,6 +37,8 @@ public interface RecommendMapper {
 	public RecommendDTO selectInfo(Long recommendNumber);
 
 	public void updateFirstImage();
+
+	public List<RecommendDTO> recommendList(MemberDTO dto);
 
 	
 }

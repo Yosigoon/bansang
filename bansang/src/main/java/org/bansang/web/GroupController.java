@@ -7,14 +7,20 @@ import java.util.List;
 import java.util.UUID;
 import org.bansang.dto.GroupDTO;
 import org.bansang.dto.GroupMemberDTO;
+import org.bansang.dto.MemberDTO;
 import org.bansang.service.GroupService;
 import org.bansang.util.ReadGroupExcel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,15 +38,18 @@ public class GroupController {
 	@Autowired
 	GroupService groupService;
 
-	@GetMapping("/groupList")
-	public @ResponseBody List<GroupDTO> groupList() {
-		log.info("===============Group List: " + groupService.groupList());
-		return groupService.groupList();
+	@GetMapping("/appGroupList")
+	public @ResponseBody List<GroupDTO> appGroupList(MemberDTO dto) {
+		return groupService.appGroupList(dto.getMemberId());
+	}
+	
+	@GetMapping("/groupList") 
+	public @ResponseBody List<GroupDTO> groupList(MemberDTO dto) {
+		return groupService.groupList(dto);
 	}
 	
 	@GetMapping("/groupMemberList/{groupNumber}")
 	public @ResponseBody List<GroupMemberDTO> groupMemberList(@PathVariable("groupNumber") Long groupNumber) {
-		log.info("Group Member List: " + groupService.groupMemberList(groupNumber));
 		return groupService.groupMemberList(groupNumber);
 	}
 
@@ -59,5 +68,34 @@ public class GroupController {
 
 		groupService.upload(dto);
 		
+	}
+	@PostMapping("/addGroupMember")
+	public void addGroupMember(@RequestBody GroupMemberDTO dto){
+		groupService.addGroupMember(dto);
+	}
+	
+	@DeleteMapping("/dismissMember/{groupNumber}")
+	public ResponseEntity<String> dismissMember(@PathVariable("groupNumber") Long groupNumber, @RequestBody MemberDTO dto){
+		groupService.deleteMemmber(groupNumber, dto);
+		return new ResponseEntity<String>("delete", HttpStatus.OK);	
+	}
+	@DeleteMapping("/destroyGroup/{groupNumber}")
+	public ResponseEntity<String> destroyGroup(@PathVariable("groupNumber") Long groupNumber){	
+		groupService.destroyGroup(groupNumber);
+		return new ResponseEntity<String>("delete", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/leaveGroup")
+	public ResponseEntity<String> leaveGroup(@RequestBody GroupMemberDTO dto){
+		groupService.leaveGroup(dto);
+		return new ResponseEntity<String>("delete", HttpStatus.OK);	
+	}
+	
+	@PutMapping("/groupNameMod")
+	public ResponseEntity<String> groupNameMod(@RequestBody GroupDTO dto){
+
+		groupService.modifyName(dto);
+		
+		return new ResponseEntity<String>("modify", HttpStatus.OK);
 	}
 }

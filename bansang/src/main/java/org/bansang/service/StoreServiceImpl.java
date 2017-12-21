@@ -28,9 +28,28 @@ public class StoreServiceImpl implements StoreService {
 	private RecommendMapper recommendMapper;
 	
 	@Override
-	public List<RecommendDTO> list() {
-		return storeMapper.listPage();
+	public List<RecommendDTO> list(RecommendDTO dto) {
+		dto.setRadius(dto.getRadius() / 1000); // 100m => 0.1m
+		return storeMapper.listPage(dto);
 	}
+	
+	@Override
+	public List<RecommendDTO> listMap(RecommendDTO dto) {
+		dto.setRadius(dto.getRadius() / 1000); // 100m => 0.1m
+		return storeMapper.listMap(dto);
+	}
+	
+	@Override
+	public List<RecommendDTO> specificList(RecommendDTO dto) {
+		return storeMapper.specificList(dto);
+	}
+	
+	@Override
+	public List<RecommendDTO> specificListMap(RecommendDTO dto) {
+
+		return storeMapper.specificListMap(dto);
+	}
+	
 
 	@Override
 	public RecommendDTO view(Long storeNumber) {
@@ -82,5 +101,11 @@ public class StoreServiceImpl implements StoreService {
 		
 		return storeMapper.getImageList(storeNumber);
 	}
+
+
+
+
+
+
 
 }
