@@ -38,7 +38,6 @@ public class RecommendController {
 
 	@GetMapping("/store/{storeNumber}")
 	public RecommendDTO getInfo(@PathVariable("storeNumber") Long storeNumber) {
-		
 		return storeService.getInfo(storeNumber);
 	}
 	

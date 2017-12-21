@@ -23,5 +23,11 @@ public interface GroupMemberMapper {
 
 	@Update("update tbl_group_member set membership = 'y' where group_number = #{groupNumber} and member_id = #{memberId}")
 	public void updateMembership(GroupMemberDTO dto);
+
+	@Update("update tbl_group_member set member_name = #{memberName} where member_id = #{memberId}")
+	public void groupMemberNameUpdate(MemberDTO dto);
+
+	@Update("update tbl_group_member set membership = 'y' where member_id = #{memberId}")
+	public void signUpdateMembership(MemberDTO dto);
 	
 }

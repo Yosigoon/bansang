@@ -17,5 +17,22 @@
 		) and area_keyword = #{areaKeyword} order by register_date desc
 	) limit #{curDataCount}, 10
 	</select>
+	
+	
+	<select id="specificListMap" resultType = "RecommendDTO">
+	select *  from tbl_store where store_number in (
+		select distinct(store_number) from tbl_recommend where member_id in (
+			select distinct(member_id) from tbl_group_member where group_number in (
+				select distinct(group_number) from tbl_group_member where member_id in (
+					select distinct(member_id) from tbl_group_member where group_number in (
+						select group_number from tbl_group_member where member_id = #{memberId}
+					)
+				)
+			)
+		) and area_keyword = #{areaKeyword} order by register_date desc
+	)
+	</select>
+	
+	
   
  </mapper>

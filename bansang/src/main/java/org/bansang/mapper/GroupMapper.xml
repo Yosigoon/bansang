@@ -22,6 +22,14 @@
 					select * from tbl_group_member where group_number = #{groupNumber}
 				) t1 left join tbl_member t2 on t1.member_id = t2.member_id
 		</select>
+		
+		<select id="appGroupList" resultType = "GroupDTO">
+				select t1.group_number groupNumber, member_id memberId, t2.member_name groupLeader, group_name groupName, group_member_count groupMemberCount, register_date registerDate  from (
+					select * from tbl_group where group_number in (
+						select group_number from tbl_group_member where member_id = #{memberId}
+					)
+				) t1, tbl_group_member t2 where t1.group_number = t2.group_number and t1.group_leader = t2.member_id
+		</select>
 	
 	
 

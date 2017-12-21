@@ -22,5 +22,7 @@ public interface StoreService {
 
 	public List<RecommendDTO> specificList(RecommendDTO dto);
 
+	public List<RecommendDTO> specificListMap(RecommendDTO dto);
+
 	
 }

@@ -44,6 +44,12 @@ public class StoreServiceImpl implements StoreService {
 		return storeMapper.specificList(dto);
 	}
 	
+	@Override
+	public List<RecommendDTO> specificListMap(RecommendDTO dto) {
+
+		return storeMapper.specificListMap(dto);
+	}
+	
 
 	@Override
 	public RecommendDTO view(Long storeNumber) {
@@ -95,6 +101,8 @@ public class StoreServiceImpl implements StoreService {
 		
 		return storeMapper.getImageList(storeNumber);
 	}
+
+
 
 
 

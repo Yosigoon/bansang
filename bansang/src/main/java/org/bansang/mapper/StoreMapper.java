@@ -18,8 +18,9 @@ public interface StoreMapper {
 	@Select("call current_position_store_map( #{latitude}, #{longitude} , #{radius}, #{memberId})")
 	public List<RecommendDTO> listMap(RecommendDTO dto);
 	
-	
 	public List<RecommendDTO> specificList(RecommendDTO dto);
+	
+	public List<RecommendDTO> specificListMap(RecommendDTO dto);
 	
 	@Select("select * from tbl_store where store_number = #{storeNumber}")
 	public RecommendDTO view(Long storeNumber);
@@ -37,9 +38,7 @@ public interface StoreMapper {
 	@Select("select image_name imageName from tbl_store_image where store_number = #{storeNumber}")
 	public List<String> getImageList(Long storeNumber);
 
-	
 
-	
 	
 }
 

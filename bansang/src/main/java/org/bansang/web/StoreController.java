@@ -48,6 +48,11 @@ public class StoreController {
 		return storeService.specificList(dto);
 	}
 	
+    @GetMapping("/specificListMap")
+    public List<RecommendDTO> specificListMap(RecommendDTO dto){
+		return storeService.specificListMap(dto);
+	}
+	
 
     @GetMapping("/view")
     public RecommendDTO getView(Long storeNumber) {

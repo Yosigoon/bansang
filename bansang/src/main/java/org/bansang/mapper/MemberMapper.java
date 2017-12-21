@@ -3,6 +3,7 @@ package org.bansang.mapper;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import org.bansang.dto.GroupMemberDTO;
 import org.bansang.dto.MemberAreaDTO;
 import org.bansang.dto.MemberDTO;
+import org.springframework.web.bind.annotation.PutMapping;
 
 public interface MemberMapper {
 
@@ -45,5 +47,16 @@ public interface MemberMapper {
 	
 	@Select("select * from tbl_member where member_id = #{memberId} and member_password = #{memberPassword}")
 	public MemberDTO selectLoginInfo(MemberDTO dto);
+
+	@Delete("delete from tbl_area where member_id = #{memberId}")
+	public void deleteArea(MemberDTO dto);
+
+	@Update("update tbl_member set member_name = #{memberName}, member_password = #{memberPassword}  where member_id = #{memberId}")
+	public void updateInfo(MemberDTO dto);
+
+	@Update("update tbl_member set member_token = null where member_id = #{memberId}")
+	public void deleteToken(MemberDTO dto);
+
+	
 
 }
