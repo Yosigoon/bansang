@@ -50,15 +50,9 @@ th, td {
 			</div>
 
 			<ul class="nav">
-				<li><a href="/bansang/profile"> <i class="ti-user"></i>
-						<p>User Profile</p>
-				</a></li>
 				<li class="active"><a href="/bansang/groupList"> <i
 						class="ti-view-list-alt"></i>
 						<p>Group</p>
-				</a></li>
-				<li><a href="/bansang/storeManagement"> <i class="ti-desktop"></i>
-						<p>StoreManagement</p>
 				</a></li>
 			</ul>
 		</div>

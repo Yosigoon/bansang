@@ -65,9 +65,6 @@ public class StoreServiceImpl implements StoreService {
 		if(obj == null) {
 			
 			Long storeNumber = storeMapper.register(dto);
-//			System.out.println("==================");
-//			System.out.println(storeNumber);
-//			System.out.println("==================");
 			List<String> storeImageName = new ArrayList<String>();
 			for (int i = 0; i < count; i++) {
 				try {	

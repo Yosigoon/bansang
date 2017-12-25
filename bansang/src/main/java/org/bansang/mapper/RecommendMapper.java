@@ -40,5 +40,8 @@ public interface RecommendMapper {
 
 	public List<RecommendDTO> recommendList(MemberDTO dto);
 
+	@Delete("select * from tbl_recommend_image where recommend_number = #{recommendNumber}")
+	public void deleteImages(RecommendDTO dto);
+
 	
 }

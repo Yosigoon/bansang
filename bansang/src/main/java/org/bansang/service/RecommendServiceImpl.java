@@ -47,6 +47,8 @@ public class RecommendServiceImpl implements RecommendService {
 	@Override
 	public void recommendModify(RecommendDTO dto) {
 		recommendMapper.recommendModify(dto);
+		recommendMapper.deleteImages(dto);
+		recommendMapper.fileUpload(dto.getImages());
 		return;
 	}	
 	

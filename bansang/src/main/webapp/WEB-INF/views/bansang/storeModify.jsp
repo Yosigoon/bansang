@@ -39,7 +39,7 @@ swiper-slide {
 .gallery-thumbs .swiper-slide {
 	width: 65%;
 	height: 100%;
- 	opacity: 0.4; 
+	opacity: 0.4;
 }
 
 .gallery-thumbs .swiper-slide-active {
@@ -78,12 +78,12 @@ swiper-slide {
 	width: 23%;
 }
 
-.show{
+.show {
 	border: solid 7px #fd5d5e;
 }
 
 .hide {
-	display : none;
+	display: none;
 }
 /* +Add Style*/
 .navbar .navbar-nav>li>a.btn-info, .btn-info {
@@ -127,11 +127,6 @@ swiper-slide {
 				<a href="#" class="simple-text">동네반상</a>
 			</div>
 			<ul class="nav">
-				<li><a href="/bansang/profile"><i class="ti-user"></i>
-						<p>User Profile</p> </a></li>
-				<li><a href="/bansang/group"> <i class="ti-view-list-alt"></i>
-						<p>Group</p>
-				</a></li>
 				<li class="active"><a href="/bansang/storeManagement"> <i
 						class="ti-desktop"></i>
 						<p>Store Management</p>
@@ -153,8 +148,10 @@ swiper-slide {
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><i class="ti-user"> </i>
-							<p class="user-info">홍길동</p> </a></li>
-					<li><a href="#"> <i class="ti-shift-left"> </i>
+							<p class="user-info">${userSession.memberName}님</p>
+					</a></li>
+					
+					<li><a href="/logout"> <i class="ti-shift-left"> </i>
 							<p class="user-info">Log Out</p>
 					</a></li>
 				</ul>
@@ -178,76 +175,57 @@ swiper-slide {
 													<div class="swiper-wrapper" style="width: 100%;"></div>
 												</div>
 											</div>
-
 										</div>
-
 										<div class="col-md-6">
-											<div id="position">
-												<div class="form-group" style="margin-top: 5em;">
-													<label>StoreName</label> <input type="text"
-														class="form-control border-input" readonly="readonly"
-														value="${info.storeName}">
+											<div class="col-md-9">
+												<div id="position">
+													<div class="form-group" style="margin-top: 5em;">
+														<label>StoreName</label> 
+														<input type="text"class="form-control border-input" readonly="readonly"
+															value="${info.storeName}">
+													</div>
 												</div>
 												<div class="form-group">
-													<label>Store Address</label> <input type="text"
-														class="form-control border-input" readonly="readonly"
+													<label>Store Address</label> 
+													<input type="text"class="form-control border-input" readonly="readonly"
 														value="${info.storeAddress}">
 												</div>
 											</div>
-											<!--넣어보자 -->
 											<div class="row">
 												<div class="col-md-12">
-													<div class="form-group">
-														<!-- <label>Image</label> -->							
-														<a href="#" id="addBtn"
-															class="btn btn-sm btn-info btn-icon pull-right"> <i
-															class="ti-plus"></i> Add
-														</a>
-														
-														
-														<a href="#" id="MainBtn"
-															class="btn btn-sm btn-success btn-icon pull-right">Main Image
-														</a>
-														
-														
+													<label class="pull-left" style="margin-left: 20px;">Image</label>
+													<div class="form-group" style="margin-right: 2em;">
+														<a href="#" id="addBtn"> <img
+															src="/resources/img/plus1.png" class="pull-right"
+															style="margin-left: 10px;"></a>
+														<a href="#" id="MainBtn"><img class="pull-right" src="/resources/img/medal2.png"></a>
 														<div class="swiper-container">
 															<div class="swiper-container gallery-thumbs">
 																<div class="swiper-wrapper" style="width: 50%"></div>
-
-																<!-- Add Arrows -->
 																<span class="swiper-button-next swiper-button-black"></span>
 																<span class="swiper-button-prev swiper-button-black"></span>
-																<!-- <div class="swiper-button-prev swiper-button-red"></div> -->
 															</div>
 														</div>
-
-
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-
-									<!-- thumb 있었던 자리  -->
 									<div class="row">
 										<div class="form-group">
-											<div class="text-right" style="margin-right: 2em;">
-
-												<input type='hidden' name='storeNumber'	value='${info.storeNumber}'>
-												<input type='hidden' name='storePage' value='${cri.page}'>
+											<div class="col-md-6 pull-right" style="margin-right: 2em;">
+											
+												<input type='hidden' name='storeNumber' value='${info.storeNumber}'> 
+												<input type='hidden' name='storePage' value='${cri.page}'> 
 												<input type='hidden' name='searchType' value='${cri.searchType}'>
 												<input type='hidden' name='keyword' value='${cri.keyword}'>
 
-
-												<a href="#" data-oper="del" class="btn btn-sm btn-info btn-icon pull-right">Delete</a> 
-												<a href="#" data-oper="mod" class="btn btn-sm btn-info btn-icon pull-right" >Update</a>
-												<a href="#" data-oper="can" class="btn btn-sm btn-info btn-icon pull-right">Back</a>
-
-
-<!-- 											<a href="#" data-oper="del" id="button" class="btn btn-info btn-fill btn-wd">Delete</a> 
-												<a href="#" data-oper="mod" id="button" class="btn btn-info btn-fill btn-wd" >Update</a>
-												<a href="#" data-oper="can" id="button" class="btn btn-info btn-fill btn-wd">Back</a> -->
-												
+												<a href="#" data-oper="can" class="btn pull-right"
+													style="margin-left: 7px">취소</a> 
+												<a href="#" data-oper="mod"
+													class="btn btn-success pull-right" style="margin-left: 7px">수정</a>
+												<a href="#" data-oper="del" class="btn btn-info pull-right"
+													style="margin-left: 7px">삭제</a>
 											</div>
 										</div>
 									</div>
@@ -272,11 +250,13 @@ swiper-slide {
 	src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 <script src="/resources/sweetalert2/dist/sweetalert2.min.js"></script>
 <script type="text/javascript" src="/resources/js/ip.js"></script>
-<!--  -->
 <script src="/resources/js/swiper.js"></script>
+
 <script>
-	var imageIdx = 0;
+	
 	/*--------------------------swiper event---------------------------*/
+	
+	var imageIdx = 0;
 	
 	var galleryTop = new Swiper('.gallery-top', {
 	              		spaceBetween : 10,
@@ -303,8 +283,6 @@ swiper-slide {
 		var storeNumber =  ${info.storeNumber}
 	
         $.getJSON(IP + 'upload/storeImages/'+ storeNumber , function (arr) {  
-        	
-        	
         	
             for(var i = 0; i < arr.length; i++){
             	
@@ -334,7 +312,6 @@ swiper-slide {
     }
 	getStoreImages();
 	
-
 	/*-------------------------image upload--------------------------- */
 	
 	$("#addBtn").click(function(e){
@@ -384,10 +361,6 @@ swiper-slide {
 							galleryTop.appendSlide(top);
 							galleryThumbs.appendSlide(thumbs);
 							
-					
-							
-							
-							
 					  }
 			  
 				  }); 
@@ -399,13 +372,6 @@ swiper-slide {
 	
 
     $('.gallery-thumbs').on('click','.canBtn' ,function () {
-
-       
-          /* $(this).parent().removeClass('swiper-slide swiper-slide-active');  */
-     
-/*          $(this).parent().remove(); 
-         $('#top').parent().remove();  */
-         
          
          var deleteIno = $(this).attr("data-ino"); 
          
@@ -422,7 +388,6 @@ swiper-slide {
          });
    });
 
-
 	 	var deleteIno = $(this).attr("data-ino"); 
 	 	
 	 	var idx;
@@ -434,27 +399,27 @@ swiper-slide {
 	 	    	galleryThumbs.removeSlide(index);
 	 			galleryTop.removeSlide(index);
 	 			return false;
-	 		}
-	 		
+	 		}	
 	 	});
 	 	
-	 
-
-	
-
 	/*--------------------------buttno(delete, update, cancel)---------------------------*/
 
 	var actionForm = $("#actionForm");
 	var modForm = $("#modForm");
+	
 	$(".btn").click(function(e) {
 		e.preventDefault();
 	});
 
 	/* 삭제 */
-	$(".btn[data-oper='del']").click(function(e) {
-						actionForm.append("<input type='hidden' name='storeNumber' value='${info.storeNumber}'><input type='hidden' name='storePage' value='${cri.page}'>");
+ 	$(".btn[data-oper='del']").click(function(e) {
+						actionForm.append("<input type='hidden' name='storeNumber' value='${info.storeNumber}'>");
+						actionForm.append("<input type='hidden' name='storePage' value='${cri.page}'>");
+						actionForm.append("<input type='hidden' name='searchType' value='${cri.searchType}'>");
+						actionForm.append("<input type='hidden' name='keyword' value='${cri.keyword}'>");
 						actionForm.attr("method", "post").attr("action", "/bansang/remove").submit();
-					});
+					}); 
+					
 
 	/* 취소 */
 	$(".btn[data-oper='can']").click(function(e) {
@@ -465,7 +430,7 @@ swiper-slide {
 	});
 	
 
-	// 수정(Update)
+	/*  수정(Update) */
 	$(".btn[data-oper='mod']").click(function(e) {
 		$("img[class*='swiper-slide-active']").each(function(index){
 			console.log($(this).attr('data-name'));
@@ -473,8 +438,9 @@ swiper-slide {
 	 	});
 		modForm.append("<input type='hidden' name='imageName' value='" + $("#mark[class*='show']").attr('data-name') + "'>");
 		modForm.attr("action", "/bansang/storeModify").submit();
-		
-	})
+	});
+	
+	/* mainImage */
 	
 	$("#MainBtn").click(function(e) {
 		
@@ -489,12 +455,17 @@ swiper-slide {
 		console.log(selectedMainImage);
  		selectedMainImage.addClass('show');
  		selectedMainImage.siblings().addClass('hide');
-		
-		
-		
-		
-		
-	})
+ 		
+ 		swal({
+ 			  position: 'center',
+ 			  type: 'success',
+ 			  title: 'Image Completed.',
+ 			  showConfirmButton: false,
+ 			  timer: 1500
+ 			});
+ 		
+	});
+	
 	
 </script>
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
