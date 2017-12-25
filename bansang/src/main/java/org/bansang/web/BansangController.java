@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gargoylesoftware.htmlunit.javascript.host.Console;
@@ -87,16 +88,15 @@ public class BansangController {
 		return "redirect:/bansang/storeManagement";
 	}
 
-	
-  @PostMapping("/storeModify")
-  public String modify(RecommendDTO dto,  RedirectAttributes rttr) {
-//	  log.info("===================");
-//	  log.info("" + dto);
-//	  log.info("===================");
-	  bansangService.modifyImage(dto);
-	  rttr.addAttribute("storeNumber", dto.getStoreNumber()); 
-	  rttr.addFlashAttribute("result", "modsuccess"); 
-	  return "redirect:/bansang/storeManagement"; 
-  }
-	 
+	@PostMapping("/storeModify")
+	public String modify(RecommendDTO dto, RedirectAttributes rttr) {
+		// log.info("===================");
+		// log.info("" + dto);
+		// log.info("===================");
+		bansangService.modifyImage(dto);
+		rttr.addAttribute("storeNumber", dto.getStoreNumber());
+		rttr.addFlashAttribute("result", "modsuccess");
+		return "redirect:/bansang/storeManagement";
+	}
+
 }

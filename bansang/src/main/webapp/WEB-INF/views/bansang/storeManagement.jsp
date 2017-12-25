@@ -8,30 +8,31 @@
 <link rel="stylesheet" href="/resources/assets/css/store-management.css" />
 
 <style>
+
 #searchBtn, #listBtn {
 	background-color: #ffffff;
 	border-color: #EB5E28;
 	color: #EB5E28;
 }
 
-.card-img-top {
+.card-img-top{
 	width: 100%;
-	height: 15em;
+	height: 15em; 	
 }
 
 .card {
-	border-radius: 20px;
-	box-shadow: 0 6px 6px rgba(204, 197, 185, 0.5);
-	width: 25em;
+    border-radius: 20px;
+    box-shadow: 0 6px 6px rgba(204, 197, 185, 0.5);
+	width:25em;
 	overflow: hidden;
 	background-color: transparent;
 }
 
 .card:hover {
-	box-shadow: 0 34px 32px -33px rgba(0, 0, 0, .18);
-	-webkit-transform: translate(0px, -15px);
-	-ms-transform: translate(0px, -15px);
-	transform: translate(0px, -15px);
+  box-shadow: 0 34px 32px -33px rgba(0, 0, 0, .18);
+  -webkit-transform: translate(0px, -15px);
+  -ms-transform: translate(0px, -15px);
+  transform: translate(0px, -15px);
 }
 
 .letter {
@@ -57,6 +58,7 @@
 		clear: left;
 	}
 }
+
 </style>
 
 <div class="wrapper">
@@ -94,6 +96,7 @@
 					<li><a href="/logout"> <i class="ti-shift-left"> </i>
 							<p class="user-info">Log Out</p>
 					</a></li>
+
 				</ul>
 			</div>
 		</div>
@@ -134,12 +137,9 @@
 										<c:forEach var="list" items="${list}">
 											<div class="col-md-4">
 												<div class="card">
-													<a
-														href='/bansang/storeModify?storeNumber=${list.storeNumber}&page=${cri.page}&searchType=${cri.searchType}&keyword=${cri.keyword}'>
-														<img class="card-img-top"
-														src="/upload/thumbImages/s_${list.imageName}"
-														alt="Card image cap">
-													</a>
+												<a href='/bansang/storeModify?storeNumber=${list.storeNumber}&page=${cri.page}&searchType=${cri.searchType}&keyword=${cri.keyword}'>
+													<img class="card-img-top" 
+													src="/upload/thumbImages/s_${list.imageName}" alt="Card image cap"></a>
 													<div class="card-block">
 														<h4 class="card-title">${list.storeName}/${list.areaKeyword}</h4>
 														<p class="card-text">${list.storeAddress}</p>
@@ -163,24 +163,6 @@
 							<div class="dataTables_paginate paging_simple_numbers"
 								id="example1_paginate">
 								<ul class="pagination">
-									<!-- <li class="paginate_button previous disabled"
-											id="example1_previous">
-											<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Prev</a></li>
-										<li class="paginate_button active"><a href="#"
-											aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="example1" data-dt-idx="3" tabindex="0">3</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="example1" data-dt-idx="4" tabindex="0">4</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="example1" data-dt-idx="5" tabindex="0">5</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="example1" data-dt-idx="6" tabindex="0">6</a></li>
-										<li class="paginate_button next" id="example1_next"><a
-											href="#" aria-controls="example1" data-dt-idx="7"
-											tabindex="0">Next<-/a></li> -->
 								</ul>
 							</div>
 						</div>
@@ -197,10 +179,6 @@
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
 
-<!-- jQuery 3 -->
-<!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
-<!-- Bootstrap 3.3.7 -->
-<!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 
 <script src="/resources/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
